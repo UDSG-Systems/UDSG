@@ -31,11 +31,53 @@
   html{scroll-behavior:smooth;}
   body{
     font-family:'Public Sans',system-ui,sans-serif;
-    background:var(--paper);
+    background:
+      radial-gradient(rgba(11,31,58,.06) 1px, transparent 1.4px) 0 0/22px 22px,
+      var(--paper);
     color:var(--ink);
     line-height:1.6;
   }
   ::selection{background:var(--cyan);color:var(--navy-900);}
+
+  /* ============ MOTIVO DE ESQUINA (dossier/reticle) ============ */
+  .brack{position:relative;}
+  .brack::before,.brack::after{
+    content:"";position:absolute;width:14px;height:14px;
+    border:2px solid var(--gold);pointer-events:none;
+  }
+  .brack::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .brack::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  /* ============ FRANJA DE CREDENCIALES ============ */
+  .stats-strip{background:var(--navy-900);border-bottom:1px solid var(--navy-600);}
+  .stats-inner{
+    max-width:1180px;margin:0 auto;padding:26px 24px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  .stat{text-align:center;border-left:1px solid var(--navy-600);}
+  .stat:first-child{border-left:none;}
+  .stat-num{
+    display:block;font-family:'Saira Condensed',sans-serif;
+    font-weight:700;font-size:1.9rem;color:var(--gold);
+    letter-spacing:.02em;line-height:1.1;
+  }
+  .stat-label{
+    display:block;font-family:'IBM Plex Mono',monospace;
+    font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--steel);margin-top:4px;
+  }
+
+  /* ============ ETIQUETA DE EXPEDIENTE ============ */
+  .file-ref{
+    position:absolute;top:0;right:24px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.64rem;letter-spacing:.12em;
+    color:var(--steel);text-transform:uppercase;
+    border:1px solid var(--paper-2);
+    padding:4px 10px;
+  }
+  .ops .file-ref{color:var(--cyan);border-color:var(--navy-600);}
+  @media (max-width:900px){.file-ref{display:none;}}
 
   /* ============ BANNER DE ESTADO (estilo clasificación) ============ */
   .status-banner{
@@ -114,6 +156,12 @@
     background:radial-gradient(ellipse 60% 80% at 85% 30%,rgba(57,198,214,.12),transparent 65%);
     pointer-events:none;
   }
+  .hero-watermark{
+    position:absolute;top:50%;right:-80px;
+    transform:translateY(-50%);
+    width:560px;height:560px;
+    opacity:.05;z-index:0;pointer-events:none;
+  }
   .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
   .hero .directive{
     display:inline-block;
@@ -148,14 +196,17 @@
     transition:transform .12s,background .15s,color .15s;
   }
   .btn:active{transform:translateY(1px);}
-  .btn-primary{background:var(--cyan);color:var(--navy-900);}
+  .btn-primary{
+    background:var(--cyan);color:var(--navy-900);
+    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  }
   .btn-primary:hover{background:#5FDCE9;}
   .btn-ghost{border:1.5px solid var(--paper-2);color:var(--paper-2);}
   .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
 
   /* ============ SECCIONES ============ */
   section{padding:72px 24px;}
-  .section-inner{max-width:1180px;margin:0 auto;}
+  .section-inner{max-width:1180px;margin:0 auto;position:relative;}
   .section-head{margin-bottom:42px;max-width:720px;}
   .section-head .code{
     font-family:'IBM Plex Mono',monospace;
@@ -232,8 +283,8 @@
     font-size:0.98rem;
   }
   .elig li::before{
-    content:"■";color:var(--cyan-dim);
-    position:absolute;left:6px;top:14px;font-size:0.7rem;
+    content:"";position:absolute;left:6px;top:20px;
+    width:14px;height:6px;background:var(--gold);
   }
   .notice{
     background:var(--white);
@@ -331,12 +382,18 @@
     .grid-3,.grid-2{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr 1fr;}
     .steps{grid-template-columns:1fr 1fr;}
+    .stats-inner{grid-template-columns:1fr 1fr;row-gap:22px;}
+    .stat:nth-child(3){border-left:none;}
     .elig-grid{grid-template-columns:1fr;}
     .agency-id h1{font-size:1.45rem;}
   }
   @media (max-width:540px){
     .steps,.contact-grid{grid-template-columns:1fr;}
+    .stats-inner{grid-template-columns:1fr;}
+    .stat{border-left:none;border-top:1px solid var(--navy-600);padding-top:14px;}
+    .stat:first-child{border-top:none;padding-top:0;}
     section{padding:52px 20px;}
+    .hero-watermark{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;}
@@ -374,6 +431,7 @@
 
 <!-- HERO -->
 <section class="hero" id="mision" style="padding-top:76px;">
+  <img class="hero-watermark" src="nsa-seal.png" alt="" aria-hidden="true">
   <div class="hero-inner">
     <span class="directive">Directiva NSA-001 · Mandato fundacional NSA</span>
     <h2>Creamos la cobertura digital.<br>La protegemos.<br><span class="hl">Damos el acceso.</span></h2>
@@ -390,21 +448,32 @@
   </div>
 </section>
 
+<!-- CREDENCIALES -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat"><span class="stat-num">$0</span><span class="stat-label">Costo para beneficiarios</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Programas activos</span></div>
+    <div class="stat"><span class="stat-num">24–48H</span><span class="stat-label">Primera respuesta</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Código auditable</span></div>
+  </div>
+</div>
+
 <!-- MISIÓN Y VISIÓN -->
 <section id="vision">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/MV-01</div>
     <div class="section-head">
       <div class="code">SECCIÓN 02 // RAZÓN DE SER</div>
       <h3>Por qué existe la NSA</h3>
       <p>Dos ideas simples sostienen todo lo que hacemos: a quién servimos, y qué mundo digital queremos construir.</p>
     </div>
     <div class="grid-2">
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-MV1 · Misión</div>
         <h4>Democratizar el acceso a infraestructura digital segura</h4>
         <p>Ninguna persona, comunidad u organización civil debería quedar desprotegida solo porque no puede pagar lo que hoy cobra la industria. Construimos y protegemos esa infraestructura donde el mercado no llega, sin letra pequeña y sin cobrar de más a quien menos tiene.</p>
       </article>
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-MV2 · Visión</div>
         <h4>Un estándar garantizado, no un lujo</h4>
         <p>Un futuro donde la seguridad digital de calidad sea un mínimo garantizado, no un privilegio reservado a quien puede pagar tarifas abusivas. Que ninguna comunidad, fundación o empresa pequeña tenga que elegir entre operar sin protección o pagar precios que no puede sostener.</p>
@@ -416,23 +485,24 @@
 <!-- PROGRAMAS -->
 <section id="programas">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/PRG-01</div>
     <div class="section-head">
       <div class="code">SECCIÓN 03 // LÍNEAS DE PROGRAMA</div>
       <h3>Programas operativos</h3>
       <p>Tres líneas de acción cubren el ciclo completo del acceso: crear la cobertura digital que falta, proteger la que ya existe y capacitar a quien la va a usar.</p>
     </div>
     <div class="grid-3">
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-P1 · Forja</div>
         <h4>Creación de cobertura digital</h4>
         <p>Donde no hay acceso, lo creamos: infraestructura, plataformas seguras a medida —registros, comunicación, gestión— y los sistemas que una comunidad necesita para operar.</p>
       </article>
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-P2 · Escudo</div>
         <h4>Protección de la cobertura</h4>
         <p>Todo acceso que damos, lo defendemos: auditoría de seguridad, respaldo de datos, cifrado y respuesta a incidentes, también para sistemas existentes de personas y organizaciones civiles en riesgo.</p>
       </article>
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-P3 · Faro</div>
         <h4>Capacitación y autonomía digital</h4>
         <p>Formación práctica en higiene digital, administración de sistemas y continuidad operativa, para que cada beneficiario pueda sostener su propia infraestructura a largo plazo.</p>
@@ -444,18 +514,19 @@
 <!-- CONSULTORÍA -->
 <section id="consultoria">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/CNS-01</div>
     <div class="section-head">
       <div class="code">SECCIÓN 04 // SERVICIO PROFESIONAL</div>
       <h3>Consultoría NSA</h3>
       <p>Para empresas y organizaciones que sí pueden invertir en su seguridad e infraestructura. Es el único servicio de pago que ofrecemos, y cada consultoría contratada financia directamente los programas gratuitos de esta sección para quien no puede pagarlos.</p>
     </div>
     <div class="grid-2">
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-C1 · Auditoría</div>
         <h4>Consultoría en ciberseguridad</h4>
         <p>Evaluamos la seguridad real de tus sistemas actuales: vulnerabilidades, exposición de datos, respaldo y respuesta ante incidentes. Entregamos hallazgos claros y un plan de acción — sin venderte pánico ni contratos eternos.</p>
       </article>
-      <article class="card">
+      <article class="card brack">
         <div class="prog-code">NSA-C2 · Estrategia</div>
         <h4>Consultoría en infraestructura y sistemas</h4>
         <p>Te ayudamos a decidir qué construir, qué adoptar y qué evitar: arquitectura, plataformas, herramientas y proveedores, con criterio técnico independiente — no comisión por venderte de más.</p>
@@ -471,28 +542,29 @@
 <!-- CÓMO OPERAMOS -->
 <section class="ops" id="operacion">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/OPS-01</div>
     <div class="section-head">
       <div class="code">SECCIÓN 05 // PROTOCOLO DE ASISTENCIA</div>
       <h3>Cómo operamos</h3>
       <p>Todo caso sigue el mismo protocolo de cuatro fases, sin excepciones. La confidencialidad del beneficiario se mantiene en todas ellas.</p>
     </div>
     <div class="steps">
-      <div class="step">
+      <div class="step brack">
         <div class="n">FASE 01</div>
         <h5>Recepción</h5>
         <p>Recibimos la solicitud por canal seguro y verificamos que el caso corresponde a nuestra misión civil.</p>
       </div>
-      <div class="step">
+      <div class="step brack">
         <div class="n">FASE 02</div>
         <h5>Evaluación</h5>
         <p>Analizamos riesgos, necesidades y recursos disponibles. Definimos el alcance junto con el solicitante.</p>
       </div>
-      <div class="step">
+      <div class="step brack">
         <div class="n">FASE 03</div>
         <h5>Despliegue</h5>
         <p>Ejecutamos: protegemos el sistema existente o construimos el nuevo, con estándares abiertos y auditables.</p>
       </div>
-      <div class="step">
+      <div class="step brack">
         <div class="n">FASE 04</div>
         <h5>Transferencia</h5>
         <p>Entregamos el control total al beneficiario, con capacitación y documentación. El sistema es suyo, no nuestro.</p>
@@ -504,6 +576,7 @@
 <!-- ELEGIBILIDAD -->
 <section class="elig" id="elegibilidad">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/ELG-01</div>
     <div class="elig-grid">
       <div>
         <div class="section-head" style="margin-bottom:18px;">
@@ -517,7 +590,7 @@
           <li>Proyectos de interés social que requieren infraestructura digital para operar.</li>
         </ul>
       </div>
-      <aside class="notice">
+      <aside class="notice brack">
         <div class="n-head">Aviso NSA-A1</div>
         <h5>Servicio sin costo, sin condiciones comerciales</h5>
         <p>la agencia no cobra a sus beneficiarios, no vende sus datos y no condiciona la asistencia a ninguna contraprestación. Los casos se priorizan por nivel de riesgo y urgencia. La única excepción es nuestra <a href="#consultoria">Consultoría</a> para empresas, cuyo ingreso financia estos programas gratuitos.</p>
@@ -530,31 +603,32 @@
 <!-- CONTACTO -->
 <section class="contact" id="contacto">
   <div class="section-inner">
+    <div class="file-ref">Doc. NSA/CTC-01</div>
     <div class="section-head">
       <div class="code">SECCIÓN 07 // CANALES OFICIALES</div>
       <h3>Contacto</h3>
       <p>Usa el canal que corresponda a tu situación. Si tu caso es urgente o sensible, indícalo desde el primer mensaje.</p>
     </div>
     <div class="contact-grid">
-      <div class="channel">
+      <div class="channel brack">
         <div class="ch-code">CANAL-01</div>
         <h5>Solicitudes de asistencia</h5>
         <p>Para pedir protección o construcción de un sistema.</p>
         <p><a href="mailto:asistencia@nuxiens.org">asistencia@nuxiens.org</a></p>
       </div>
-      <div class="channel">
+      <div class="channel brack">
         <div class="ch-code">CANAL-02</div>
         <h5>Consultoría para empresas</h5>
         <p>Para agendar auditorías de seguridad o consultoría de infraestructura de pago.</p>
         <p><a href="mailto:consultoria@nuxiens.org">consultoria@nuxiens.org</a></p>
       </div>
-      <div class="channel">
+      <div class="channel brack">
         <div class="ch-code">CANAL-03</div>
         <h5>Voluntariado técnico</h5>
         <p>Para profesionales que quieren aportar horas de ingeniería, seguridad o soporte.</p>
         <p><a href="mailto:voluntarios@nuxiens.org">voluntarios@nuxiens.org</a></p>
       </div>
-      <div class="channel">
+      <div class="channel brack">
         <div class="ch-code">CANAL-04</div>
         <h5>Alianzas y donaciones</h5>
         <p>Para organizaciones e individuos que desean financiar la misión.</p>
