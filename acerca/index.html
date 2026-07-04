@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acerca de — Nuxiens Systems Agency</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; script-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -21,7 +21,9 @@
 <header>
   <div class="header-inner">
     <!-- Sello oficial NSA -->
-    <img class="seal" src="nsa-seal.png" width="86" height="86" alt="Sello de Nuxiens Systems Agency">
+    <a href="/" aria-label="Ir al inicio">
+      <img class="seal" src="/nsa-seal.png" width="86" height="86" alt="Sello de Nuxiens Systems Agency">
+    </a>
     <div class="agency-id">
       <div class="eyebrow">Agencia de infraestructura digital civil — NSA</div>
       <h1>Nuxiens Systems Agency</h1>
@@ -34,20 +36,23 @@
   </div>
 </header>
 
-<!-- Panel de navegación a pantalla completa (se abre/cierra vía :target, sin JS) -->
-<nav id="menu-open" class="menu-overlay" aria-label="Navegación principal">
-  <a href="index.html#mision" class="menu-close">Cerrar ×</a>
-  <div class="menu-overlay-inner">
-    <a href="acerca.html" class="menu-link" aria-current="page"><span class="menu-num">01</span>Acerca de</a>
-    <a href="index.html#mision" class="menu-link"><span class="menu-num">02</span>Misión</a>
-    <a href="index.html#vision" class="menu-link"><span class="menu-num">03</span>Visión</a>
-    <a href="index.html#programas" class="menu-link"><span class="menu-num">04</span>Programas</a>
-    <a href="index.html#consultoria" class="menu-link"><span class="menu-num">05</span>Consultoría</a>
-    <a href="index.html#operacion" class="menu-link"><span class="menu-num">06</span>Cómo operamos</a>
-    <a href="index.html#elegibilidad" class="menu-link"><span class="menu-num">07</span>Elegibilidad</a>
-    <a href="index.html#contacto" class="menu-link"><span class="menu-num">08</span>Contacto</a>
-  </div>
-</nav>
+<!-- Panel de navegación tipo sidebar (se abre/cierra vía :target, sin JS) -->
+<div id="menu-open" class="menu-overlay" aria-label="Navegación principal">
+  <a href="/acerca/#acerca" class="menu-backdrop" aria-label="Cerrar menú"></a>
+  <nav class="menu-panel">
+    <a href="/acerca/#acerca" class="menu-close">Cerrar ×</a>
+    <div class="menu-overlay-inner">
+      <a href="/acerca/" class="menu-link" aria-current="page"><span class="menu-num">01</span>Acerca de</a>
+      <a href="/#mision" class="menu-link"><span class="menu-num">02</span>Misión</a>
+      <a href="/#vision" class="menu-link"><span class="menu-num">03</span>Visión</a>
+      <a href="/#programas" class="menu-link"><span class="menu-num">04</span>Programas</a>
+      <a href="/#consultoria" class="menu-link"><span class="menu-num">05</span>Consultoría</a>
+      <a href="/#operacion" class="menu-link"><span class="menu-num">06</span>Cómo operamos</a>
+      <a href="/#elegibilidad" class="menu-link"><span class="menu-num">07</span>Elegibilidad</a>
+      <a href="/#contacto" class="menu-link"><span class="menu-num">08</span>Contacto</a>
+    </div>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="acerca">
@@ -75,7 +80,7 @@
         <circle cx="300" cy="540" r="4"/>
       </g>
     </svg>
-    <img class="hero-hub-seal" src="nsa-seal.png" alt="">
+    <img class="hero-hub-seal" src="/nsa-seal.png" alt="">
   </div>
   <div class="hero-inner">
     <span class="directive">Doc. NSA/ABT-01 · Expediente institucional</span>
@@ -176,9 +181,9 @@
       <p>Ya sea que necesites ayuda, quieras contratar consultoría, o busques sumarte como voluntario.</p>
     </div>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="index.html#elegibilidad">Solicitar asistencia</a>
-      <a class="btn btn-ghost" href="index.html#consultoria">Consultoría para empresas</a>
-      <a class="btn btn-ghost" href="index.html#contacto">Contacto</a>
+      <a class="btn btn-primary" href="/#elegibilidad">Solicitar asistencia</a>
+      <a class="btn btn-ghost" href="/#consultoria">Consultoría para empresas</a>
+      <a class="btn btn-ghost" href="/#contacto">Contacto</a>
     </div>
   </div>
 </section>
@@ -186,7 +191,7 @@
 <footer>
   <div class="footer-inner">
     <div class="f-id">
-      <img src="nsa-seal.png" alt="" width="44" height="44">
+      <a href="/" aria-label="Ir al inicio"><img src="/nsa-seal.png" alt="" width="44" height="44"></a>
       <h6>Nuxiens Systems Agency</h6>
       <p>Nuxiens Systems Agency (NSA) es una fundación civil sin fines de lucro que crea, protege y transfiere infraestructura digital segura para personas, comunidades y organizaciones civiles que hoy no pueden acceder a ella en el mercado comercial. Financiamos nuestros programas gratuitos con consultoría profesional de pago para empresas que sí pueden costearla — nunca al revés.</p>
       <p class="f-disclaimer">NSA es un nombre e identidad visual propios de esta fundación. No es una agencia gubernamental ni mantiene afiliación con ninguna entidad de gobierno de ningún país.</p>
@@ -195,18 +200,18 @@
     <div class="f-links">
       <div>
         <h6>Agencia</h6>
-        <a href="acerca.html">Acerca de</a>
-        <a href="index.html#mision">Misión</a>
-        <a href="index.html#vision">Visión</a>
-        <a href="index.html#programas">Programas</a>
-        <a href="index.html#operacion">Protocolo</a>
+        <a href="/acerca/">Acerca de</a>
+        <a href="/#mision">Misión</a>
+        <a href="/#vision">Visión</a>
+        <a href="/#programas">Programas</a>
+        <a href="/#operacion">Protocolo</a>
       </div>
       <div>
         <h6>Participa</h6>
-        <a href="index.html#elegibilidad">Solicitar asistencia</a>
-        <a href="index.html#consultoria">Consultoría</a>
-        <a href="index.html#contacto">Voluntariado</a>
-        <a href="index.html#contacto">Donaciones</a>
+        <a href="/#elegibilidad">Solicitar asistencia</a>
+        <a href="/#consultoria">Consultoría</a>
+        <a href="/#contacto">Voluntariado</a>
+        <a href="/#contacto">Donaciones</a>
       </div>
     </div>
   </div>
