@@ -13,89 +13,65 @@
 <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy-900:#081627;
-    --navy-800:#0B1F3A;
-    --navy-700:#122C4E;
-    --navy-600:#1B3A63;
-    --steel:#5A7699;
-    --cyan:#39C6D6;
-    --cyan-dim:#2A93A0;
+    --void:#050708;
+    --void-2:#0A0E13;
+    --panel:#0D1319;
+    --line:#1B232C;
+    --line-soft:#222D38;
+    --steel:#7C8CA0;
+    --steel-dim:#4F5D70;
+    --ink:#0E1520;
+    --paper:#F3F5F7;
+    --paper-2:#E4E8EC;
+    --cyan:#4FD8EA;
+    --cyan-dim:#2B93A3;
     --gold:#C9A24B;
-    --paper:#EFF3F7;
-    --paper-2:#E2E9F0;
-    --ink:#13243A;
+    --status:#33D17A;
     --white:#FFFFFF;
-    --banner-green:#1E7A4C;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     font-family:'Public Sans',system-ui,sans-serif;
     background:
-      radial-gradient(rgba(11,31,58,.06) 1px, transparent 1.4px) 0 0/22px 22px,
+      radial-gradient(rgba(15,25,35,.05) 1px, transparent 1.4px) 0 0/22px 22px,
       var(--paper);
     color:var(--ink);
     line-height:1.6;
   }
-  ::selection{background:var(--cyan);color:var(--navy-900);}
+  ::selection{background:var(--cyan);color:var(--void);}
 
-  /* ============ MOTIVO DE ESQUINA (dossier/reticle) ============ */
-  .brack{position:relative;}
-  .brack::before,.brack::after{
-    content:"";position:absolute;width:14px;height:14px;
-    border:2px solid var(--gold);pointer-events:none;
-  }
-  .brack::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
-  .brack::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
-
-  /* ============ FRANJA DE CREDENCIALES ============ */
-  .stats-strip{background:var(--navy-900);border-bottom:1px solid var(--navy-600);}
-  .stats-inner{
-    max-width:1180px;margin:0 auto;padding:26px 24px;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  }
-  .stat{text-align:center;border-left:1px solid var(--navy-600);}
-  .stat:first-child{border-left:none;}
-  .stat-num{
-    display:block;font-family:'Saira Condensed',sans-serif;
-    font-weight:700;font-size:1.9rem;color:var(--gold);
-    letter-spacing:.02em;line-height:1.1;
-  }
-  .stat-label{
-    display:block;font-family:'IBM Plex Mono',monospace;
-    font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--steel);margin-top:4px;
-  }
-
-  /* ============ ETIQUETA DE EXPEDIENTE ============ */
-  .file-ref{
-    position:absolute;top:0;right:24px;
+  /* ============ BARRA DE ESTADO ============ */
+  .status-bar{
+    background:var(--void);
+    border-bottom:1px solid var(--line);
+    color:var(--steel);
     font-family:'IBM Plex Mono',monospace;
-    font-size:.64rem;letter-spacing:.12em;
-    color:var(--steel);text-transform:uppercase;
-    border:1px solid var(--paper-2);
-    padding:4px 10px;
-  }
-  .ops .file-ref{color:var(--cyan);border-color:var(--navy-600);}
-  @media (max-width:900px){.file-ref{display:none;}}
-
-  /* ============ BANNER DE ESTADO (estilo clasificación) ============ */
-  .status-banner{
-    background:var(--banner-green);
-    color:var(--white);
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.18em;
+    font-size:0.68rem;
+    letter-spacing:0.16em;
     text-align:center;
-    padding:5px 12px;
+    padding:8px 12px;
     text-transform:uppercase;
     position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+  }
+  .status-dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--status);
+    box-shadow:0 0 0 0 rgba(51,209,122,.5);
+    animation:statusPulse 2.4s ease-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes statusPulse{
+    0%{box-shadow:0 0 0 0 rgba(51,209,122,.5);}
+    70%{box-shadow:0 0 0 7px rgba(51,209,122,0);}
+    100%{box-shadow:0 0 0 0 rgba(51,209,122,0);}
   }
 
-  /* ============ HEADER OFICIAL ============ */
+  /* ============ HEADER ============ */
   header{
-    background:var(--navy-800);
-    border-bottom:3px solid var(--gold);
+    background:var(--void);
+    border-bottom:1px solid var(--line);
   }
   .header-inner{
     max-width:1180px;margin:0 auto;
@@ -105,7 +81,7 @@
   .seal{flex-shrink:0;}
   .agency-id .eyebrow{
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.68rem;letter-spacing:0.24em;
+    font-size:0.66rem;letter-spacing:0.2em;
     color:var(--cyan);text-transform:uppercase;
   }
   .agency-id h1{
@@ -116,11 +92,11 @@
   }
   .agency-id .sub{
     font-size:0.8rem;color:var(--steel);
-    letter-spacing:0.04em;
+    letter-spacing:0.02em;
   }
   nav{
-    background:var(--navy-900);
-    border-bottom:1px solid var(--navy-600);
+    background:var(--void-2);
+    border-bottom:1px solid var(--line);
   }
   .nav-inner{
     max-width:1180px;margin:0 auto;
@@ -128,12 +104,12 @@
     padding:0 24px;
   }
   nav a{
-    color:var(--paper-2);text-decoration:none;
-    font-family:'Saira Condensed',sans-serif;
-    font-weight:600;font-size:0.92rem;
+    color:var(--steel);text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;font-size:0.72rem;
     letter-spacing:0.1em;text-transform:uppercase;
-    padding:12px 18px;
-    border-bottom:3px solid transparent;
+    padding:13px 18px;
+    border-bottom:2px solid transparent;
     transition:border-color .15s,color .15s;
   }
   nav a:hover,nav a:focus-visible{
@@ -144,24 +120,36 @@
   /* ============ HERO ============ */
   .hero{
     background:
-      linear-gradient(160deg,rgba(8,22,39,.96) 0%,rgba(11,31,58,.92) 55%,rgba(18,44,78,.88) 100%),
-      repeating-linear-gradient(90deg,transparent 0 79px,rgba(57,198,214,.06) 79px 80px),
-      var(--navy-800);
+      radial-gradient(ellipse 60% 60% at 80% 25%,rgba(79,216,234,.10),transparent 60%),
+      repeating-linear-gradient(0deg,rgba(79,216,234,.05) 0 1px,transparent 1px 46px),
+      repeating-linear-gradient(90deg,rgba(79,216,234,.05) 0 1px,transparent 1px 46px),
+      linear-gradient(180deg,var(--void) 0%,var(--void-2) 100%);
     color:var(--white);
     padding:76px 24px 84px;
     position:relative;overflow:hidden;
   }
-  .hero::after{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse 60% 80% at 85% 30%,rgba(57,198,214,.12),transparent 65%);
-    pointer-events:none;
-  }
-  .hero-watermark{
-    position:absolute;top:50%;right:-80px;
+  .hero-network-wrap{
+    position:absolute;top:50%;right:-40px;
     transform:translateY(-50%);
-    width:560px;height:560px;
-    opacity:.05;z-index:0;pointer-events:none;
+    width:520px;height:520px;z-index:0;pointer-events:none;
   }
+  .hero-network{width:100%;height:100%;display:block;}
+  .hn-grid{fill:none;stroke:var(--cyan);stroke-width:1;opacity:.28;}
+  .hn-links line{
+    stroke:var(--cyan);stroke-width:1;opacity:.2;
+    animation:hnPulse 3.2s ease-in-out infinite;
+  }
+  .hn-links line:nth-child(2){animation-delay:.5s;}
+  .hn-links line:nth-child(3){animation-delay:1s;}
+  .hn-links line:nth-child(4){animation-delay:1.5s;}
+  .hn-links line:nth-child(5){animation-delay:2s;}
+  .hn-nodes circle{fill:var(--cyan);}
+  .hero-hub-seal{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:150px;height:150px;opacity:.85;
+  }
+  @keyframes hnPulse{0%,100%{opacity:.15;}50%{opacity:.6;}}
   .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
   .hero .directive{
     display:inline-block;
@@ -183,7 +171,7 @@
   .hero h2 .hl{color:var(--cyan);}
   .hero p.lede{
     max-width:640px;margin-top:20px;
-    font-size:1.08rem;color:#C4D2E2;
+    font-size:1.08rem;color:var(--steel);
   }
   .hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
   .btn{
@@ -193,16 +181,35 @@
     text-decoration:none;
     padding:13px 28px;
     display:inline-block;
-    transition:transform .12s,background .15s,color .15s;
+    transition:transform .12s,background .15s,color .15s,border-color .15s;
   }
   .btn:active{transform:translateY(1px);}
   .btn-primary{
-    background:var(--cyan);color:var(--navy-900);
+    background:var(--cyan);color:var(--void);
     clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
   }
-  .btn-primary:hover{background:#5FDCE9;}
-  .btn-ghost{border:1.5px solid var(--paper-2);color:var(--paper-2);}
+  .btn-primary:hover{background:#7EE5F2;}
+  .btn-ghost{border:1.5px solid var(--line-soft);color:var(--steel);}
   .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+
+  /* ============ FRANJA DE CREDENCIALES ============ */
+  .stats-strip{background:var(--void-2);border-bottom:1px solid var(--line);}
+  .stats-inner{
+    max-width:1180px;margin:0 auto;padding:26px 24px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  .stat{text-align:center;border-left:1px solid var(--line);}
+  .stat:first-child{border-left:none;}
+  .stat-num{
+    display:block;font-family:'Saira Condensed',sans-serif;
+    font-weight:700;font-size:1.9rem;color:var(--cyan);
+    letter-spacing:.02em;line-height:1.1;
+  }
+  .stat-label{
+    display:block;font-family:'IBM Plex Mono',monospace;
+    font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--steel);margin-top:4px;
+  }
 
   /* ============ SECCIONES ============ */
   section{padding:72px 24px;}
@@ -217,53 +224,67 @@
     font-family:'Saira Condensed',sans-serif;
     font-weight:700;font-size:2.2rem;
     text-transform:uppercase;line-height:1.1;
-    color:var(--navy-800);
+    color:var(--ink);
     margin-top:6px;
   }
   .section-head h3::after{
-    content:"";display:block;width:64px;height:4px;
-    background:var(--gold);margin-top:12px;
+    content:"";display:block;width:56px;height:2px;
+    background:var(--cyan-dim);margin-top:14px;
   }
-  .section-head p{margin-top:16px;color:#3D5470;}
+  .section-head p{margin-top:16px;color:#3D4C5C;}
 
-  /* Programas */
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  /* ============ ETIQUETA DE EXPEDIENTE ============ */
+  .file-ref{
+    position:absolute;top:0;right:24px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.62rem;letter-spacing:.12em;
+    color:var(--steel-dim);text-transform:uppercase;
+    border:1px solid var(--paper-2);
+    padding:4px 10px;
+  }
+  .ops .file-ref{color:var(--cyan-dim);border-color:var(--line);}
+  @media (max-width:900px){.file-ref{display:none;}}
+
+  /* Tarjetas */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-2);}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--paper-2);}
   .card{
     background:var(--white);
-    border:1px solid var(--paper-2);
-    border-top:4px solid var(--navy-800);
-    padding:28px 26px;
-    transition:border-top-color .2s,transform .15s,box-shadow .2s;
+    border-left:2px solid var(--paper-2);
+    padding:30px 28px;
+    transition:border-left-color .2s,background .2s;
   }
-  .card:hover{
-    border-top-color:var(--cyan);
-    transform:translateY(-3px);
-    box-shadow:0 10px 30px rgba(11,31,58,.10);
-  }
+  .card:hover{border-left-color:var(--cyan-dim);background:#FAFEFF;}
   .card .prog-code{
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.68rem;letter-spacing:0.16em;
+    font-size:0.66rem;letter-spacing:.14em;
     color:var(--gold);text-transform:uppercase;
   }
   .card h4{
     font-family:'Saira Condensed',sans-serif;
     font-weight:600;font-size:1.35rem;
-    text-transform:uppercase;color:var(--navy-800);
-    margin:8px 0 10px;line-height:1.15;
+    text-transform:uppercase;color:var(--ink);
+    margin:10px 0 10px;line-height:1.15;
   }
-  .card p{font-size:0.94rem;color:#42597a;}
+  .card p{font-size:0.94rem;color:#3D4C5C;}
 
   /* Cómo operamos */
-  .ops{background:var(--navy-800);color:var(--paper-2);}
+  .ops{background:var(--void);color:var(--steel);}
   .ops .section-head h3{color:var(--white);}
+  .ops .section-head h3::after{background:var(--cyan);}
   .ops .section-head .code{color:var(--cyan);}
-  .ops .section-head p{color:#9DB2C9;}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--navy-600);border:1px solid var(--navy-600);}
-  .step{background:var(--navy-700);padding:26px 22px;}
+  .ops .section-head p{color:var(--steel);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
+  .step{background:var(--panel);padding:26px 24px;position:relative;}
+  .step::after{
+    content:"→";position:absolute;top:24px;right:-11px;
+    color:var(--cyan-dim);font-family:'IBM Plex Mono',monospace;
+    font-size:.9rem;z-index:2;
+  }
+  .step:last-child::after{content:none;}
   .step .n{
     font-family:'IBM Plex Mono',monospace;
-    color:var(--gold);font-size:0.78rem;letter-spacing:0.14em;
+    color:var(--cyan);font-size:0.76rem;letter-spacing:0.14em;
   }
   .step h5{
     font-family:'Saira Condensed',sans-serif;
@@ -271,7 +292,7 @@
     text-transform:uppercase;color:var(--white);
     margin:8px 0 8px;
   }
-  .step p{font-size:0.88rem;color:#A9BDD3;}
+  .step p{font-size:0.88rem;color:var(--steel);}
 
   /* Elegibilidad */
   .elig{background:var(--paper-2);}
@@ -288,22 +309,21 @@
   }
   .notice{
     background:var(--white);
-    border-left:5px solid var(--gold);
+    border-left:3px solid var(--gold);
     padding:26px 26px;
-    box-shadow:0 6px 24px rgba(11,31,58,.08);
   }
   .notice .n-head{
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.7rem;letter-spacing:0.18em;
+    font-size:0.68rem;letter-spacing:0.18em;
     color:var(--gold);text-transform:uppercase;
     margin-bottom:10px;
   }
   .notice h5{
     font-family:'Saira Condensed',sans-serif;
     font-size:1.3rem;text-transform:uppercase;
-    color:var(--navy-800);margin-bottom:10px;
+    color:var(--ink);margin-bottom:10px;
   }
-  .notice p{font-size:0.94rem;color:#42597a;margin-bottom:16px;}
+  .notice p{font-size:0.94rem;color:#3D4C5C;margin-bottom:16px;}
   .notice p a{color:var(--cyan-dim);font-weight:600;}
 
   /* Consultoría */
@@ -312,34 +332,37 @@
     border-top:1px solid var(--paper-2);
     display:flex;align-items:center;gap:24px;flex-wrap:wrap;
   }
-  .consult-cta p{color:#3D5470;font-size:0.94rem;max-width:460px;}
+  .consult-cta p{color:#3D4C5C;font-size:0.94rem;max-width:460px;}
 
   /* Contacto */
   .contact{background:var(--white);}
-  .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-2);}
   .channel{
-    border:1px solid var(--paper-2);
+    background:var(--white);
+    border-left:2px solid var(--paper-2);
     padding:24px;
+    transition:border-left-color .2s;
   }
+  .channel:hover{border-left-color:var(--cyan-dim);}
   .channel .ch-code{
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.68rem;letter-spacing:0.16em;
+    font-size:0.66rem;letter-spacing:.14em;
     color:var(--cyan-dim);text-transform:uppercase;
   }
   .channel h5{
     font-family:'Saira Condensed',sans-serif;
     font-size:1.2rem;text-transform:uppercase;
-    color:var(--navy-800);margin:6px 0 6px;
+    color:var(--ink);margin:6px 0 6px;
   }
-  .channel p{font-size:0.9rem;color:#42597a;}
+  .channel p{font-size:0.9rem;color:#3D4C5C;}
   .channel a{color:var(--cyan-dim);font-weight:600;text-decoration:none;}
   .channel a:hover{text-decoration:underline;}
 
   /* ============ FOOTER ============ */
   footer{
-    background:var(--navy-900);
+    background:var(--void);
     color:var(--steel);
-    border-top:3px solid var(--gold);
+    border-top:1px solid var(--line);
     padding:44px 24px 0;
   }
   .footer-inner{
@@ -359,22 +382,22 @@
   .f-links{margin-left:auto;display:flex;gap:44px;flex-wrap:wrap;}
   .f-links div h6{
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.68rem;letter-spacing:0.18em;
+    font-size:0.66rem;letter-spacing:0.18em;
     color:var(--cyan);text-transform:uppercase;
     margin-bottom:10px;
   }
   .f-links a{
-    display:block;color:var(--paper-2);
+    display:block;color:var(--steel);
     text-decoration:none;font-size:0.86rem;
     padding:3px 0;
   }
   .f-links a:hover{color:var(--cyan);}
   .f-bottom{
-    border-top:1px solid var(--navy-600);
+    border-top:1px solid var(--line);
     font-family:'IBM Plex Mono',monospace;
-    font-size:0.7rem;letter-spacing:0.1em;
+    font-size:0.68rem;letter-spacing:0.1em;
     text-align:center;padding:14px 0;
-    color:var(--steel);text-transform:uppercase;
+    color:var(--steel-dim);text-transform:uppercase;
   }
 
   /* ============ RESPONSIVE ============ */
@@ -382,18 +405,22 @@
     .grid-3,.grid-2{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr 1fr;}
     .steps{grid-template-columns:1fr 1fr;}
+    .step::after{content:none;}
     .stats-inner{grid-template-columns:1fr 1fr;row-gap:22px;}
     .stat:nth-child(3){border-left:none;}
     .elig-grid{grid-template-columns:1fr;}
     .agency-id h1{font-size:1.45rem;}
+    .hero-network-wrap{width:400px;height:400px;right:-80px;}
+  }
+  @media (max-width:700px){
+    .hero-network-wrap{display:none;}
   }
   @media (max-width:540px){
     .steps,.contact-grid{grid-template-columns:1fr;}
     .stats-inner{grid-template-columns:1fr;}
-    .stat{border-left:none;border-top:1px solid var(--navy-600);padding-top:14px;}
+    .stat{border-left:none;border-top:1px solid var(--line);padding-top:14px;}
     .stat:first-child{border-top:none;padding-top:0;}
     section{padding:52px 20px;}
-    .hero-watermark{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;}
@@ -403,8 +430,8 @@
 </head>
 <body>
 
-<!-- Banner de estado, estilo clasificación gubernamental -->
-<div class="status-banner">ACCESO PÚBLICO // MISIÓN CIVIL // SIN FINES DE LUCRO</div>
+<!-- Barra de estado del sistema -->
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span>Sistema operativo // Acceso público // Sin fines de lucro</div>
 
 <header>
   <div class="header-inner">
@@ -431,7 +458,32 @@
 
 <!-- HERO -->
 <section class="hero" id="mision" style="padding-top:76px;">
-  <img class="hero-watermark" src="nsa-seal.png" alt="" aria-hidden="true">
+  <div class="hero-network-wrap" aria-hidden="true">
+    <svg class="hero-network" viewBox="0 0 560 560">
+      <g class="hn-grid">
+        <circle cx="280" cy="280" r="200"/>
+        <ellipse cx="280" cy="280" rx="200" ry="70"/>
+        <ellipse cx="280" cy="280" rx="90" ry="200"/>
+        <ellipse cx="280" cy="280" rx="150" ry="200"/>
+        <line x1="80" y1="280" x2="480" y2="280"/>
+      </g>
+      <g class="hn-links">
+        <line x1="280" y1="280" x2="60" y2="130"/>
+        <line x1="280" y1="280" x2="520" y2="100"/>
+        <line x1="280" y1="280" x2="530" y2="410"/>
+        <line x1="280" y1="280" x2="80" y2="450"/>
+        <line x1="280" y1="280" x2="300" y2="540"/>
+      </g>
+      <g class="hn-nodes">
+        <circle cx="60" cy="130" r="4"/>
+        <circle cx="520" cy="100" r="4"/>
+        <circle cx="530" cy="410" r="4"/>
+        <circle cx="80" cy="450" r="4"/>
+        <circle cx="300" cy="540" r="4"/>
+      </g>
+    </svg>
+    <img class="hero-hub-seal" src="nsa-seal.png" alt="">
+  </div>
   <div class="hero-inner">
     <span class="directive">Directiva NSA-001 · Mandato fundacional NSA</span>
     <h2>Creamos la cobertura digital.<br>La protegemos.<br><span class="hl">Damos el acceso.</span></h2>
@@ -468,12 +520,12 @@
       <p>Dos ideas simples sostienen todo lo que hacemos: a quién servimos, y qué mundo digital queremos construir.</p>
     </div>
     <div class="grid-2">
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-MV1 · Misión</div>
         <h4>Democratizar el acceso a infraestructura digital segura</h4>
         <p>Ninguna persona, comunidad u organización civil debería quedar desprotegida solo porque no puede pagar lo que hoy cobra la industria. Construimos y protegemos esa infraestructura donde el mercado no llega, sin letra pequeña y sin cobrar de más a quien menos tiene.</p>
       </article>
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-MV2 · Visión</div>
         <h4>Un estándar garantizado, no un lujo</h4>
         <p>Un futuro donde la seguridad digital de calidad sea un mínimo garantizado, no un privilegio reservado a quien puede pagar tarifas abusivas. Que ninguna comunidad, fundación o empresa pequeña tenga que elegir entre operar sin protección o pagar precios que no puede sostener.</p>
@@ -492,17 +544,17 @@
       <p>Tres líneas de acción cubren el ciclo completo del acceso: crear la cobertura digital que falta, proteger la que ya existe y capacitar a quien la va a usar.</p>
     </div>
     <div class="grid-3">
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-P1 · Forja</div>
         <h4>Creación de cobertura digital</h4>
         <p>Donde no hay acceso, lo creamos: infraestructura, plataformas seguras a medida —registros, comunicación, gestión— y los sistemas que una comunidad necesita para operar.</p>
       </article>
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-P2 · Escudo</div>
         <h4>Protección de la cobertura</h4>
         <p>Todo acceso que damos, lo defendemos: auditoría de seguridad, respaldo de datos, cifrado y respuesta a incidentes, también para sistemas existentes de personas y organizaciones civiles en riesgo.</p>
       </article>
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-P3 · Faro</div>
         <h4>Capacitación y autonomía digital</h4>
         <p>Formación práctica en higiene digital, administración de sistemas y continuidad operativa, para que cada beneficiario pueda sostener su propia infraestructura a largo plazo.</p>
@@ -521,12 +573,12 @@
       <p>Para empresas y organizaciones que sí pueden invertir en su seguridad e infraestructura. Es el único servicio de pago que ofrecemos, y cada consultoría contratada financia directamente los programas gratuitos de esta sección para quien no puede pagarlos.</p>
     </div>
     <div class="grid-2">
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-C1 · Auditoría</div>
         <h4>Consultoría en ciberseguridad</h4>
         <p>Evaluamos la seguridad real de tus sistemas actuales: vulnerabilidades, exposición de datos, respaldo y respuesta ante incidentes. Entregamos hallazgos claros y un plan de acción — sin venderte pánico ni contratos eternos.</p>
       </article>
-      <article class="card brack">
+      <article class="card">
         <div class="prog-code">NSA-C2 · Estrategia</div>
         <h4>Consultoría en infraestructura y sistemas</h4>
         <p>Te ayudamos a decidir qué construir, qué adoptar y qué evitar: arquitectura, plataformas, herramientas y proveedores, con criterio técnico independiente — no comisión por venderte de más.</p>
@@ -549,22 +601,22 @@
       <p>Todo caso sigue el mismo protocolo de cuatro fases, sin excepciones. La confidencialidad del beneficiario se mantiene en todas ellas.</p>
     </div>
     <div class="steps">
-      <div class="step brack">
+      <div class="step">
         <div class="n">FASE 01</div>
         <h5>Recepción</h5>
         <p>Recibimos la solicitud por canal seguro y verificamos que el caso corresponde a nuestra misión civil.</p>
       </div>
-      <div class="step brack">
+      <div class="step">
         <div class="n">FASE 02</div>
         <h5>Evaluación</h5>
         <p>Analizamos riesgos, necesidades y recursos disponibles. Definimos el alcance junto con el solicitante.</p>
       </div>
-      <div class="step brack">
+      <div class="step">
         <div class="n">FASE 03</div>
         <h5>Despliegue</h5>
         <p>Ejecutamos: protegemos el sistema existente o construimos el nuevo, con estándares abiertos y auditables.</p>
       </div>
-      <div class="step brack">
+      <div class="step">
         <div class="n">FASE 04</div>
         <h5>Transferencia</h5>
         <p>Entregamos el control total al beneficiario, con capacitación y documentación. El sistema es suyo, no nuestro.</p>
@@ -590,7 +642,7 @@
           <li>Proyectos de interés social que requieren infraestructura digital para operar.</li>
         </ul>
       </div>
-      <aside class="notice brack">
+      <aside class="notice">
         <div class="n-head">Aviso NSA-A1</div>
         <h5>Servicio sin costo, sin condiciones comerciales</h5>
         <p>la agencia no cobra a sus beneficiarios, no vende sus datos y no condiciona la asistencia a ninguna contraprestación. Los casos se priorizan por nivel de riesgo y urgencia. La única excepción es nuestra <a href="#consultoria">Consultoría</a> para empresas, cuyo ingreso financia estos programas gratuitos.</p>
@@ -610,25 +662,25 @@
       <p>Usa el canal que corresponda a tu situación. Si tu caso es urgente o sensible, indícalo desde el primer mensaje.</p>
     </div>
     <div class="contact-grid">
-      <div class="channel brack">
+      <div class="channel">
         <div class="ch-code">CANAL-01</div>
         <h5>Solicitudes de asistencia</h5>
         <p>Para pedir protección o construcción de un sistema.</p>
         <p><a href="mailto:asistencia@nuxiens.org">asistencia@nuxiens.org</a></p>
       </div>
-      <div class="channel brack">
+      <div class="channel">
         <div class="ch-code">CANAL-02</div>
         <h5>Consultoría para empresas</h5>
         <p>Para agendar auditorías de seguridad o consultoría de infraestructura de pago.</p>
         <p><a href="mailto:consultoria@nuxiens.org">consultoria@nuxiens.org</a></p>
       </div>
-      <div class="channel brack">
+      <div class="channel">
         <div class="ch-code">CANAL-03</div>
         <h5>Voluntariado técnico</h5>
         <p>Para profesionales que quieren aportar horas de ingeniería, seguridad o soporte.</p>
         <p><a href="mailto:voluntarios@nuxiens.org">voluntarios@nuxiens.org</a></p>
       </div>
-      <div class="channel brack">
+      <div class="channel">
         <div class="ch-code">CANAL-04</div>
         <h5>Alianzas y donaciones</h5>
         <p>Para organizaciones e individuos que desean financiar la misión.</p>
