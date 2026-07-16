@@ -44,51 +44,40 @@ button{font:inherit;cursor:pointer;transition:background .15s,color .15s,border-
 .app{flex:1;display:grid;grid-template-columns:270px 1fr;min-height:0;transition:grid-template-columns .22s ease}
 .app.collapsed{grid-template-columns:48px 1fr}
 
-/* ---------- sidebar ---------- */
-.side{background:var(--side);color:var(--side-ink);border-right:1px solid var(--side-line);display:flex;flex-direction:column;min-height:0;overflow:hidden}
-.side-head{padding:16px 18px 12px;border-bottom:1px solid var(--side-line);display:flex;align-items:flex-start;gap:10px;flex:none}
+/* ---------- sidebar (claro por defecto; oscuro solo en Generar reporte) ---------- */
+.side{background:var(--paper);color:var(--ink);border-right:1px solid var(--rule);display:flex;flex-direction:column;min-height:0;overflow:hidden;transition:background .15s,color .15s,border-color .15s}
+.side-head{padding:16px 18px 12px;border-bottom:1px solid var(--rule);display:flex;align-items:flex-start;gap:10px;flex:none}
 .side-head .txt{min-width:0}
-.side-head .brand{font-weight:700;font-size:16px;color:#F7F6F2}
+.side-head .brand{font-weight:700;font-size:16px;color:var(--ink)}
 .side-head .brand sup{font-size:8px;font-weight:400}
-.side-head .sub{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--side-ink-lo);margin-top:2px}
-.collapse-btn{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--side-ink-lo);border:1px solid var(--side-line);width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;background:none}
-.collapse-btn:hover{color:#F7F6F2;border-color:#454b50}
+.side-head .sub{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-lo);margin-top:2px}
+.collapse-btn{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-lo);border:1px solid var(--rule);width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;background:none}
+.collapse-btn:hover{color:var(--ink);border-color:var(--ink-lo)}
 .app.collapsed .side-head{padding:12px 0;justify-content:center;border-bottom:none}
 .app.collapsed .side-head .txt,.app.collapsed .side-nav,.app.collapsed .side-body,.app.collapsed .side-foot{display:none}
 .app.collapsed .collapse-btn{margin:0}
 .side-rail{display:none;flex:1;align-items:flex-start;justify-content:center;padding-top:14px}
 .app.collapsed .side-rail{display:flex}
-.rail-label{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--side-ink-lo);writing-mode:vertical-rl;user-select:none}
+.rail-label{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-lo);writing-mode:vertical-rl;user-select:none}
 
-.side-nav{display:flex;border-bottom:1px solid var(--side-line);flex:none}
-.side-nav .nav-btn{flex:1;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:12px 6px;background:none;border:none;border-bottom:2px solid transparent;color:var(--side-ink-lo)}
-.side-nav .nav-btn.on{color:#F7F6F2;border-bottom-color:var(--red)}
-.side-nav .nav-btn:hover{color:#F7F6F2}
+.side-nav{display:flex;border-bottom:1px solid var(--rule);flex:none}
+.side-nav .nav-btn{flex:1;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:12px 6px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-lo)}
+.side-nav .nav-btn.on{color:var(--red);border-bottom-color:var(--red)}
+.side-nav .nav-btn:hover{color:var(--ink)}
 
 .side-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;min-height:0}
-.side-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--side-ink-lo);margin:18px 0 8px}
+.side-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-lo);margin:18px 0 8px}
 .side-label:first-child{margin-top:0}
 
-.seg{display:flex;border:1px solid var(--side-line);border-radius:var(--radius-sm);overflow:hidden}
-.seg button{flex:1;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--side-ink-lo);padding:8px 6px}
-.seg button.on{background:var(--side-ink);color:var(--side)}
+.cat-list{display:flex;flex-direction:column;gap:2px;margin-bottom:4px}
+.cat-row{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:var(--radius-sm);font-size:12px;color:var(--ink-lo);background:none;border:none;width:100%;text-align:left}
+.cat-row:hover{background:var(--paper-dim);color:var(--ink)}
+.cat-row.on{background:var(--cat-tint,var(--red-tint));color:var(--cat-color,var(--red))}
+.cat-row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--cat-color,var(--ink-lo))}
+.cat-row .n{margin-left:auto;font-family:var(--mono);font-size:10px;color:inherit;opacity:.75}
 
-.pills{display:flex;flex-wrap:wrap;gap:6px}
-.pill{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--side-line);border-radius:999px;color:var(--side-ink-lo);display:flex;align-items:center;gap:6px;background:none}
-.pill:hover{border-color:var(--side-ink-lo);color:var(--side-ink)}
-.pill.on{background:var(--pill-color,var(--red));border-color:var(--pill-color,var(--red));color:#fff}
-.pill .n{opacity:.75;font-size:8px}
-
-.stat-list{display:flex;flex-direction:column;gap:7px}
-.stat-row{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px}
-.stat-row .dot{width:7px;height:7px;border-radius:50%;flex:none}
-.stat-row .lbl{flex:1;color:var(--side-ink-lo)}
-.stat-row .val{color:var(--side-ink);font-weight:500}
-.stat-row.bad .val{color:#E0776D}
-.stat-row.warn .val{color:#E3B15C}
-
-.side-btn{width:100%;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 12px;border:1.5px solid var(--side-line);color:var(--side-ink);margin-bottom:8px;transition:.15s;text-align:center;background:none;border-radius:var(--radius-sm)}
-.side-btn:hover{border-color:var(--side-ink)}
+.side-btn{width:100%;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 12px;border:1.5px solid var(--rule);color:var(--ink);margin-bottom:8px;transition:.15s;text-align:center;background:none;border-radius:var(--radius-sm)}
+.side-btn:hover{border-color:var(--ink-lo)}
 .side-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
 .side-btn.primary:hover{background:transparent;color:var(--red)}
 .side-note{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:var(--side-ink-lo);line-height:1.6;margin-top:2px;margin-bottom:8px}
@@ -104,8 +93,26 @@ button{font:inherit;cursor:pointer;transition:background .15s,color .15s,border-
 .lib-item.used .box{background:var(--red);border-color:var(--red)}
 .lib-item .hint{grid-column:2;font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--side-ink-lo)}
 
-.side-foot{padding:14px 18px;border-top:1px solid var(--side-line);flex:none}
-#repSaveState{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--side-ink-lo);display:block;margin-bottom:10px;text-align:center}
+.side-foot{padding:14px 18px;border-top:1px solid var(--rule);flex:none}
+#repSaveState{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lo);display:block;margin-bottom:10px;text-align:center}
+
+/* el editor de propuestas conserva su panel oscuro original sin cambios */
+.side.theme-dark{background:var(--side);color:var(--side-ink);border-right-color:var(--side-line)}
+.side.theme-dark .side-head{border-bottom-color:var(--side-line)}
+.side.theme-dark .side-head .brand{color:#F7F6F2}
+.side.theme-dark .side-head .sub{color:var(--side-ink-lo)}
+.side.theme-dark .collapse-btn{color:var(--side-ink-lo);border-color:var(--side-line)}
+.side.theme-dark .collapse-btn:hover{color:#F7F6F2;border-color:#454b50}
+.side.theme-dark .rail-label{color:var(--side-ink-lo)}
+.side.theme-dark .side-nav{border-bottom-color:var(--side-line)}
+.side.theme-dark .side-nav .nav-btn{color:var(--side-ink-lo)}
+.side.theme-dark .side-nav .nav-btn.on{color:#F7F6F2;border-bottom-color:var(--red)}
+.side.theme-dark .side-nav .nav-btn:hover{color:#F7F6F2}
+.side.theme-dark .side-label{color:var(--side-ink-lo)}
+.side.theme-dark .side-btn{color:var(--side-ink);border-color:var(--side-line)}
+.side.theme-dark .side-btn:hover{border-color:var(--side-ink)}
+.side.theme-dark .side-foot{border-top-color:var(--side-line)}
+.side.theme-dark #repSaveState{color:var(--side-ink-lo)}
 
 /* ---------- main ---------- */
 .main{min-height:0;overflow:hidden;display:flex;flex-direction:column}
@@ -120,6 +127,46 @@ button{font:inherit;cursor:pointer;transition:background .15s,color .15s,border-
 .new-btn{margin-left:auto;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;border:none;border-radius:var(--radius-sm);padding:11px 18px;box-shadow:0 2px 10px rgba(179,38,30,.25)}
 .new-btn:hover{background:#96201A;transform:translateY(-1px)}
 
+.view-tabs{display:flex;border:1px solid var(--rule);border-radius:var(--radius-sm);overflow:hidden;margin-left:8px}
+.view-tabs button{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--ink-lo);padding:9px 14px}
+.view-tabs button.on{background:var(--ink);color:var(--paper)}
+
+/* ---------- resumen (dashboard) ---------- */
+#pageResumen{overflow:auto;padding:24px 28px}
+.stat-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.stat-tile{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:16px 18px;box-shadow:0 1px 3px rgba(20,20,20,.05)}
+.stat-tile .st-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-lo);margin-bottom:10px}
+.stat-tile .st-value{font-size:28px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+
+.dash-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.dash-col{display:flex;flex-direction:column;gap:16px}
+.dash-card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:18px;box-shadow:0 1px 3px rgba(20,20,20,.05)}
+.dash-card-head{font-size:13px;font-weight:600;margin-bottom:14px;letter-spacing:-.01em;color:var(--ink)}
+.dash-empty{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lo);text-align:center;padding:16px 0}
+
+.recent-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.recent-row:last-child{border-bottom:none}
+.recent-row .rr-name{flex:1;min-width:0}
+.recent-row .rr-name b{display:block;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-row .rr-name span{font-size:10.5px;color:var(--ink-lo)}
+.recent-row .bar{width:64px;flex:none}
+.recent-row .pct{width:32px;text-align:right;flex:none}
+
+.dist-bar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--paper-dim);gap:2px}
+.dist-bar .seg{height:100%}
+.dist-legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:12px}
+.dist-legend .item{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;color:var(--ink-lo)}
+.dist-legend .item .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dist-legend .item b{color:var(--ink);font-weight:500}
+
+.due-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:12px}
+.due-row:last-child{border-bottom:none}
+.due-row .dr-name{flex:1;min-width:0;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- tarjetas: pastillas de estado/prioridad ---------- */
+.tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.status-pill{font-family:var(--mono);font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:var(--sp-color);background:var(--sp-tint)}
+
 .board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(272px,1fr);gap:14px;align-items:start}
 .col{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);display:flex;flex-direction:column;max-height:calc(100vh - 130px);transition:background .12s;overflow:hidden;box-shadow:0 1px 3px rgba(20,20,20,.05)}
 .col.drag-over{background:var(--paper-dim)}
@@ -129,7 +176,7 @@ button{font:inherit;cursor:pointer;transition:background .15s,color .15s,border-
 .col-head .n{margin-left:auto;font-family:var(--mono);font-size:9.5px;color:var(--ink-lo)}
 .col-body{padding:10px;display:flex;flex-direction:column;gap:9px;overflow-y:auto;min-height:40px}
 
-.card{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--status-color,var(--rule));border-radius:var(--radius-sm);padding:12px 13px;cursor:pointer;box-shadow:0 1px 2px rgba(20,20,20,.04);transition:border-color .12s,opacity .12s,box-shadow .15s,transform .15s}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--radius-sm);padding:12px 13px;cursor:pointer;box-shadow:0 1px 2px rgba(20,20,20,.04);transition:border-color .12s,opacity .12s,box-shadow .15s,transform .15s}
 .card:hover{box-shadow:0 8px 20px rgba(20,20,20,.10);transform:translateY(-1px)}
 .card.dragging{opacity:.35}
 .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
@@ -322,7 +369,7 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
   html,body{height:auto;overflow:visible;background:#fff!important}
   body{display:block}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .gate,.side,.class-bar,.rep-foot,.fmtbar,#pageProjects{display:none!important}
+  .gate,.side,.class-bar,.rep-foot,.fmtbar,#pageResumen,#pageProjects{display:none!important}
   .app,.app.collapsed{display:block}
   .main{display:block}
   .work{background:transparent!important;overflow:visible;padding:0;display:block}
@@ -367,25 +414,17 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
     <div class="side-rail"><span class="rail-label">UDSG</span></div>
 
     <nav class="side-nav">
-      <button class="nav-btn on" data-page="projects">Proyectos</button>
+      <button class="nav-btn on" data-page="resumen">Resumen</button>
+      <button class="nav-btn" data-page="projects">Proyectos</button>
       <button class="nav-btn" data-page="reports">Generar reporte</button>
     </nav>
 
     <div class="side-body" id="sideProjects">
-      <div class="side-label">Vista</div>
-      <div class="seg">
-        <button id="viewBoardBtn" class="on">Tablero</button>
-        <button id="viewListBtn">Lista</button>
-      </div>
-
       <div class="side-label">Estado</div>
-      <div class="pills" id="statusFilters"></div>
+      <div class="cat-list" id="statusFilters"></div>
 
       <div class="side-label">Prioridad</div>
-      <div class="pills" id="priorityFilters"></div>
-
-      <div class="side-label">Resumen</div>
-      <div class="stat-list" id="statList"></div>
+      <div class="cat-list" id="priorityFilters"></div>
     </div>
 
     <div class="side-body hidden" id="sideReports">
@@ -426,10 +465,46 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
 
   <!-- ============ MAIN ============ -->
   <main class="main">
-    <section class="page" id="pageProjects">
+    <section class="page" id="pageResumen">
+      <div class="board-head">
+        <h1>Resumen</h1>
+        <span class="count">Vista general de todos los proyectos</span>
+      </div>
+
+      <div class="stat-tiles">
+        <div class="stat-tile"><div class="st-label">Total proyectos</div><div class="st-value" id="stTotal">0</div></div>
+        <div class="stat-tile"><div class="st-label">Subtareas totales</div><div class="st-value" id="stTasks">0</div></div>
+        <div class="stat-tile"><div class="st-label">En progreso</div><div class="st-value" id="stProgress">0</div></div>
+        <div class="stat-tile"><div class="st-label">Completados</div><div class="st-value" id="stDone">0</div></div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-head">Proyectos recientes</div>
+          <div id="recentList"></div>
+        </div>
+        <div class="dash-col">
+          <div class="dash-card">
+            <div class="dash-card-head">Distribución por estado</div>
+            <div class="dist-bar" id="distBar"></div>
+            <div class="dist-legend" id="distLegend"></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-head">Próximas entregas</div>
+            <div id="dueList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page hidden" id="pageProjects">
       <div class="board-head">
         <h1>Control de proyectos</h1>
         <span class="count" id="totalCount">— proyectos</span>
+        <div class="view-tabs">
+          <button id="viewBoardBtn" class="on">Tablero</button>
+          <button id="viewListBtn">Lista</button>
+        </div>
         <button class="new-btn" id="newBtn">+ Nuevo proyecto</button>
       </div>
       <div class="board" id="board"></div>
@@ -570,8 +645,8 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
 const API_BASE = 'https://udsg-admin-api.udsg.workers.dev';
 
 const STATUSES = ['Solicitud','Evaluación','Desarrollo','Entrega','Completado'];
-const STATUS_COLOR = {Solicitud:'#9A7B1F',Evaluación:'#B3261E',Desarrollo:'#1E5FB3',Entrega:'#6E4EA8',Completado:'#2E6B45'};
-const STATUS_TINT = {Solicitud:'#FBF3DF',Evaluación:'#FBEAE9',Desarrollo:'#E7EEFA',Entrega:'#F0EAF7',Completado:'#E8F1EB'};
+const STATUS_COLOR = {Solicitud:'#9A7B1F',Evaluación:'#B3261E',Desarrollo:'#1D6FD1',Entrega:'#8A3FA0',Completado:'#1E7A46'};
+const STATUS_TINT = {Solicitud:'#FBF3DF',Evaluación:'#FBEAE9',Desarrollo:'#E7EEFA',Entrega:'#F6EAF9',Completado:'#E8F3EC'};
 const PRIORITIES = ['Alta','Normal','Baja'];
 const PRIORITY_COLOR = {Alta:'#B3261E',Normal:'#6E6A62',Baja:'#2E6B45'};
 
@@ -629,14 +704,18 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 });
 
 // -------- navegación de secciones (sidebar) --------
+const side = document.getElementById('side');
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const page = btn.dataset.page;
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('on', b === btn));
-    document.getElementById('sideProjects').classList.toggle('hidden', page !== 'projects');
+    side.classList.toggle('theme-dark', page === 'reports');
+    document.getElementById('sideProjects').classList.toggle('hidden', page === 'reports');
     document.getElementById('sideReports').classList.toggle('hidden', page !== 'reports');
+    document.getElementById('pageResumen').classList.toggle('hidden', page !== 'resumen');
     document.getElementById('pageProjects').classList.toggle('hidden', page !== 'projects');
     document.getElementById('pageReports').classList.toggle('hidden', page !== 'reports');
+    if (page === 'resumen') renderResumen();
   });
 });
 
@@ -685,15 +764,16 @@ function visibleProjects() {
   });
 }
 
-function renderFilterPills() {
+function renderCategories() {
   const sf = document.getElementById('statusFilters');
   sf.innerHTML = '';
   STATUSES.forEach(s => {
     const count = projects.filter(p => p.status === s).length;
     const btn = document.createElement('button');
-    btn.className = 'pill' + (activeStatuses.has(s) ? ' on' : '');
-    btn.style.setProperty('--pill-color', STATUS_COLOR[s]);
-    btn.innerHTML = `<span>${s}</span><span class="n">${count}</span>`;
+    btn.className = 'cat-row' + (activeStatuses.has(s) ? ' on' : '');
+    btn.style.setProperty('--cat-color', STATUS_COLOR[s]);
+    btn.style.setProperty('--cat-tint', STATUS_TINT[s]);
+    btn.innerHTML = `<span class="dot"></span><span>${s}</span><span class="n">${count}</span>`;
     btn.addEventListener('click', () => {
       activeStatuses.has(s) ? activeStatuses.delete(s) : activeStatuses.add(s);
       render();
@@ -706,9 +786,9 @@ function renderFilterPills() {
   PRIORITIES.forEach(pr => {
     const count = projects.filter(p => p.priority === pr).length;
     const btn = document.createElement('button');
-    btn.className = 'pill' + (activePriorities.has(pr) ? ' on' : '');
-    btn.style.setProperty('--pill-color', PRIORITY_COLOR[pr]);
-    btn.innerHTML = `<span>${pr}</span><span class="n">${count}</span>`;
+    btn.className = 'cat-row' + (activePriorities.has(pr) ? ' on' : '');
+    btn.style.setProperty('--cat-color', PRIORITY_COLOR[pr]);
+    btn.innerHTML = `<span class="dot"></span><span>${pr}</span><span class="n">${count}</span>`;
     btn.addEventListener('click', () => {
       activePriorities.has(pr) ? activePriorities.delete(pr) : activePriorities.add(pr);
       render();
@@ -717,24 +797,55 @@ function renderFilterPills() {
   });
 }
 
-function renderStats() {
-  const list = document.getElementById('statList');
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  let overdue = 0, soon = 0;
-  projects.forEach(p => {
-    if (!p.due_date) return;
-    const d = new Date(p.due_date + 'T00:00:00');
-    const diff = Math.round((d - today) / 86400000);
-    if (diff < 0) overdue++;
-    else if (diff <= 3) soon++;
-  });
-  const rows = STATUSES.map(s => {
-    const n = projects.filter(p => p.status === s).length;
-    return `<div class="stat-row"><span class="dot" style="background:${STATUS_COLOR[s]}"></span><span class="lbl">${s}</span><span class="val">${n}</span></div>`;
-  }).join('');
-  list.innerHTML = rows
-    + `<div class="stat-row bad"><span class="dot" style="background:#E0776D"></span><span class="lbl">Vencidos</span><span class="val">${overdue}</span></div>`
-    + `<div class="stat-row warn"><span class="dot" style="background:#E3B15C"></span><span class="lbl">Por vencer</span><span class="val">${soon}</span></div>`;
+function renderResumen() {
+  const totalTasks = projects.reduce((sum, p) => sum + (p.tasks || []).length, 0);
+  const inProgress = projects.filter(p => p.status === 'Desarrollo' || p.status === 'Entrega').length;
+  const done = projects.filter(p => p.status === 'Completado').length;
+  document.getElementById('stTotal').textContent = projects.length;
+  document.getElementById('stTasks').textContent = totalTasks;
+  document.getElementById('stProgress').textContent = inProgress;
+  document.getElementById('stDone').textContent = done;
+
+  const recentList = document.getElementById('recentList');
+  const recent = [...projects].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)).slice(0, 5);
+  recentList.innerHTML = recent.length ? recent.map(p => `
+    <div class="recent-row">
+      <div class="rr-name"><b>${escapeHtml(p.name)}</b><span>${escapeHtml(p.client || '—')}</span></div>
+      <span class="status-pill" style="--sp-color:${STATUS_COLOR[p.status]};--sp-tint:${STATUS_TINT[p.status]}">${p.status}</span>
+      <span class="bar${p.progress >= 100 ? ' full' : ''}"><i style="width:${p.progress}%"></i></span>
+      <span class="pct">${p.progress}%</span>
+    </div>
+  `).join('') : '<div class="dash-empty">Sin proyectos todavía</div>';
+
+  const distBar = document.getElementById('distBar');
+  const distLegend = document.getElementById('distLegend');
+  const total = projects.length;
+  if (total === 0) {
+    distBar.innerHTML = '';
+    distLegend.innerHTML = '<div class="dash-empty">Sin datos</div>';
+  } else {
+    distBar.innerHTML = STATUSES.filter(s => projects.some(p => p.status === s)).map(s => {
+      const n = projects.filter(p => p.status === s).length;
+      return `<span class="seg" style="width:${(n / total) * 100}%;background:${STATUS_COLOR[s]}"></span>`;
+    }).join('');
+    distLegend.innerHTML = STATUSES.map(s => {
+      const n = projects.filter(p => p.status === s).length;
+      return `<span class="item"><span class="dot" style="background:${STATUS_COLOR[s]}"></span>${s} <b>${n}</b></span>`;
+    }).join('');
+  }
+
+  const dueList = document.getElementById('dueList');
+  const withDue = projects
+    .map(p => ({ p, due: dueInfo(p.due_date) }))
+    .filter(x => x.due && x.due.diffDays <= 3)
+    .sort((a, b) => a.due.diffDays - b.due.diffDays)
+    .slice(0, 6);
+  dueList.innerHTML = withDue.length ? withDue.map(({ p, due }) => `
+    <div class="due-row">
+      <span class="dr-name">${escapeHtml(p.name)}</span>
+      <span class="due-pill ${due.cls}">${due.label}</span>
+    </div>
+  `).join('') : '<div class="dash-empty">Nada vencido ni por vencer</div>';
 }
 
 function render() {
@@ -742,8 +853,8 @@ function render() {
   totalCount.textContent = visible.length === projects.length
     ? (projects.length + (projects.length === 1 ? ' proyecto' : ' proyectos'))
     : (visible.length + ' de ' + projects.length + ' proyectos');
-  renderFilterPills();
-  renderStats();
+  renderCategories();
+  renderResumen();
   if (currentView === 'board') renderBoard(visible); else renderTable(visible);
 }
 
@@ -810,7 +921,6 @@ function taskProgress(p) {
 function renderCard(p) {
   const card = document.createElement('div');
   card.className = 'card';
-  card.style.setProperty('--status-color', STATUS_COLOR[p.status]);
   card.draggable = true;
   card.addEventListener('dragstart', e => {
     card.classList.add('dragging');
@@ -825,13 +935,16 @@ function renderCard(p) {
   if (tp) footBits.push(`<span class="tasks-count">${tp.done}/${tp.total} tareas</span>`);
 
   card.innerHTML = `
+    <div class="tags-row">
+      <span class="status-pill" style="--sp-color:${STATUS_COLOR[p.status]};--sp-tint:${STATUS_TINT[p.status]}">${p.status}</span>
+      <span class="tag ${p.priority}">${p.priority}</span>
+    </div>
     <div class="top">
       <span class="name">${escapeHtml(p.name)}</span>
       <span class="ref">${escapeHtml(p.ref)}</span>
     </div>
     <div class="client">${escapeHtml(p.client || '—')}</div>
     <div class="meta">
-      <span class="tag ${p.priority}">${p.priority}</span>
       <span class="bar${p.progress >= 100 ? ' full' : ''}"><i style="width:${p.progress}%"></i></span>
       <span class="pct">${p.progress}%</span>
     </div>
@@ -875,7 +988,7 @@ function renderTable(visible) {
     tr.innerHTML = `
       <td class="name-cell">${escapeHtml(p.name)}</td>
       <td>${escapeHtml(p.client || '—')}</td>
-      <td>${escapeHtml(p.status)}</td>
+      <td><span class="status-pill" style="--sp-color:${STATUS_COLOR[p.status]};--sp-tint:${STATUS_TINT[p.status]}">${p.status}</span></td>
       <td><span class="tag ${p.priority}">${p.priority}</span></td>
       <td><div class="row-meta"><span class="bar${p.progress >= 100 ? ' full' : ''}"><i style="width:${p.progress}%"></i></span><span class="pct">${p.progress}%</span></div></td>
       <td>${due ? `<span class="due-pill ${due.cls}">${due.label}</span>` : '—'}</td>
