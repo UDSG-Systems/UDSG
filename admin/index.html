@@ -164,8 +164,42 @@ button{font:inherit;cursor:pointer;transition:background .15s,color .15s,border-
 .due-row .dr-name{flex:1;min-width:0;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ---------- tarjetas: pastillas de estado/prioridad ---------- */
-.tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tags-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
 .status-pill{font-family:var(--mono);font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:var(--sp-color);background:var(--sp-tint)}
+.doc-flag{margin-left:auto;font-size:12px;opacity:.55}
+.card-desc{font-size:11.5px;color:var(--ink-lo);margin-bottom:9px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ---------- documento (reporte de proyecto / detalle de tarea) ---------- */
+.modal-title-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.modal-title-row h2{margin-bottom:0}
+.report-btn{margin-left:auto;flex:none;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lo);background:none;border:1px solid var(--rule);border-radius:var(--radius-sm);padding:7px 12px;font-weight:500}
+.report-btn:hover{color:var(--ink);border-color:var(--ink-lo)}
+.report-btn.has-content{color:var(--red);border-color:var(--red-tint);background:var(--red-tint)}
+.check-row .ct{cursor:pointer}
+.check-row .ct:hover{text-decoration:underline}
+.check-row .detail-flag{flex:none;font-size:11px;opacity:.55;margin-right:2px}
+
+.docview{position:fixed;inset:0;background:var(--paper);z-index:45;display:flex;flex-direction:column}
+.docview-head{display:flex;align-items:center;gap:16px;padding:16px 28px;border-bottom:1px solid var(--rule);flex:none}
+.docview-back{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lo);background:none;border:1px solid var(--rule);border-radius:var(--radius-sm);padding:8px 14px;flex:none}
+.docview-back:hover{color:var(--ink);border-color:var(--ink-lo)}
+.docview-title{flex:1;min-width:0}
+.docview-eyebrow{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-lo);margin-bottom:2px}
+.docview-name{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.docview-save{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lo);flex:none}
+
+.docview-toolbar{display:flex;gap:4px;padding:10px 28px;border-bottom:1px solid var(--rule);flex:none}
+.docview-toolbar button{font-family:var(--sans);font-size:12px;color:var(--ink-lo);background:none;border:1px solid var(--rule);border-radius:6px;width:30px;height:28px;display:flex;align-items:center;justify-content:center}
+.docview-toolbar button:hover{color:var(--ink);border-color:var(--ink-lo)}
+
+.docview-body{flex:1;overflow-y:auto;display:flex;justify-content:center;padding:36px 24px}
+.docview-editable{width:min(720px,100%);font-size:14.5px;line-height:1.7;color:var(--ink);outline:none;min-height:100%}
+.docview-editable:empty::before{content:attr(data-ph);color:var(--ink-lo)}
+.docview-editable p{margin-bottom:12px}
+.docview-editable ul{margin:0 0 12px 20px}
+.docview-editable li{margin-bottom:5px}
+.docview-editable h3{font-size:17px;font-weight:600;margin:18px 0 8px;letter-spacing:-.01em}
+.docview-editable b,.docview-editable strong{color:var(--ink)}
 
 .board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(272px,1fr);gap:14px;align-items:start}
 .col{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);display:flex;flex-direction:column;max-height:calc(100vh - 130px);transition:background .12s;overflow:hidden;box-shadow:0 1px 3px rgba(20,20,20,.05)}
@@ -584,7 +618,10 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
 <!-- MODAL -->
 <div class="modal-bg hidden" id="modalBg">
   <div class="modal">
-    <h2 id="modalTitle">Nuevo proyecto</h2>
+    <div class="modal-title-row">
+      <h2 id="modalTitle">Nuevo proyecto</h2>
+      <button class="report-btn hidden" id="reportBtn">📄 Reporte</button>
+    </div>
     <input type="hidden" id="pId">
     <div class="field"><label>Nombre del proyecto</label><input type="text" id="pName"></div>
     <div class="field"><label>Cliente / Organización</label><input type="text" id="pClient"></div>
@@ -631,6 +668,28 @@ td .due-pill.soon{color:var(--amber);background:var(--amber-tint)}
       <button class="mbtn" id="cancelBtn">Cancelar</button>
     </div>
     <div class="modal-msg" id="modalMsg"></div>
+  </div>
+</div>
+
+<!-- DOCUMENTO (reporte de proyecto / detalle de tarea) -->
+<div class="docview hidden" id="docView">
+  <div class="docview-head">
+    <button class="docview-back" id="docBackBtn">← Volver</button>
+    <div class="docview-title">
+      <div class="docview-eyebrow" id="docEyebrow"></div>
+      <div class="docview-name" id="docName"></div>
+    </div>
+    <span class="docview-save" id="docSaveState"></span>
+  </div>
+  <div class="docview-toolbar">
+    <button data-cmd="bold" title="Negrita"><b>B</b></button>
+    <button data-cmd="italic" title="Cursiva"><i>I</i></button>
+    <button data-cmd="insertUnorderedList" title="Lista con viñetas">≡</button>
+    <button data-cmd="heading" title="Título de sección">H</button>
+    <button data-cmd="removeFormat" title="Quitar formato">✕</button>
+  </div>
+  <div class="docview-body">
+    <div class="docview-editable" id="docBody" contenteditable data-ph="Escribe aquí el reporte: avances, decisiones, información técnica, lo que sea…"></div>
   </div>
 </div>
 
@@ -938,12 +997,14 @@ function renderCard(p) {
     <div class="tags-row">
       <span class="status-pill" style="--sp-color:${STATUS_COLOR[p.status]};--sp-tint:${STATUS_TINT[p.status]}">${p.status}</span>
       <span class="tag ${p.priority}">${p.priority}</span>
+      ${p.report ? '<span class="doc-flag" title="Tiene reporte">📄</span>' : ''}
     </div>
     <div class="top">
       <span class="name">${escapeHtml(p.name)}</span>
       <span class="ref">${escapeHtml(p.ref)}</span>
     </div>
     <div class="client">${escapeHtml(p.client || '—')}</div>
+    ${p.description ? `<div class="card-desc">${escapeHtml(p.description)}</div>` : ''}
     <div class="meta">
       <span class="bar${p.progress >= 100 ? ' full' : ''}"><i style="width:${p.progress}%"></i></span>
       <span class="pct">${p.progress}%</span>
@@ -1029,6 +1090,9 @@ function openModal(project) {
   document.getElementById('pProgress').value = project ? project.progress : 0;
   document.getElementById('pDesc').value = project ? project.description || '' : '';
   document.getElementById('deleteBtn').classList.toggle('hidden', !project);
+  const reportBtn = document.getElementById('reportBtn');
+  reportBtn.classList.toggle('hidden', !project);
+  reportBtn.classList.toggle('has-content', !!(project && project.report));
 
   document.getElementById('checkAddRow').classList.toggle('hidden', !project);
   document.getElementById('checkNote').classList.toggle('hidden', !!project);
@@ -1072,7 +1136,8 @@ function renderChecklist() {
     row.className = 'check-row' + (t.done ? ' done' : '');
     row.innerHTML = `
       <input type="checkbox" ${t.done ? 'checked' : ''}>
-      <span class="ct">${escapeHtml(t.title)}</span>
+      ${t.detail ? '<span class="detail-flag" title="Tiene detalle">📄</span>' : ''}
+      <span class="ct" title="Abrir detalle de la tarea">${escapeHtml(t.title)}</span>
       <button class="del" aria-label="Eliminar">✕</button>
     `;
     row.querySelector('input').addEventListener('change', async e => {
@@ -1080,6 +1145,14 @@ function renderChecklist() {
       t.done = e.target.checked;
       renderChecklist();
       loadProjects();
+    });
+    row.querySelector('.ct').addEventListener('click', () => {
+      openDocView(
+        { type: 'task', id: t.id },
+        t.title,
+        'Detalle de tarea · ' + modalProject.name,
+        t.detail || ''
+      );
     });
     row.querySelector('.del').addEventListener('click', async () => {
       await api('/api/tasks/' + t.id, { method: 'DELETE' });
@@ -1151,6 +1224,76 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
     modalMsg.style.color = 'var(--red)';
     modalMsg.textContent = '> ' + e.message;
   }
+});
+
+// -------- documento (reporte de proyecto / detalle de tarea) --------
+const docView = document.getElementById('docView');
+const docName = document.getElementById('docName');
+const docEyebrow = document.getElementById('docEyebrow');
+const docBody = document.getElementById('docBody');
+const docSaveState = document.getElementById('docSaveState');
+let docContext = null;
+
+function openDocView(context, name, eyebrow, contentHtml) {
+  docContext = context;
+  docName.textContent = name;
+  docEyebrow.textContent = eyebrow;
+  docBody.innerHTML = contentHtml || '';
+  docSaveState.textContent = '';
+  docView.classList.remove('hidden');
+}
+function closeDocView() {
+  docView.classList.add('hidden');
+  docContext = null;
+  if (modalProject) {
+    renderChecklist();
+    document.getElementById('reportBtn').classList.toggle('has-content', !!modalProject.report);
+  }
+  loadProjects();
+}
+document.getElementById('docBackBtn').addEventListener('click', closeDocView);
+
+document.getElementById('reportBtn').addEventListener('click', () => {
+  if (!modalProject) return;
+  openDocView(
+    { type: 'project', id: modalProject.id },
+    modalProject.name,
+    'Reporte del proyecto',
+    modalProject.report || ''
+  );
+});
+
+let docSaveTimer = null;
+docBody.addEventListener('input', () => {
+  docSaveState.textContent = 'Guardando…';
+  clearTimeout(docSaveTimer);
+  docSaveTimer = setTimeout(async () => {
+    const html = docBody.innerHTML;
+    try {
+      if (docContext.type === 'project') {
+        await api('/api/projects/' + docContext.id, { method: 'PATCH', body: JSON.stringify({ report: html }) });
+        if (modalProject && modalProject.id === docContext.id) modalProject.report = html;
+      } else if (docContext.type === 'task') {
+        await api('/api/tasks/' + docContext.id, { method: 'PATCH', body: JSON.stringify({ detail: html }) });
+        if (modalProject) {
+          const t = (modalProject.tasks || []).find(x => x.id === docContext.id);
+          if (t) t.detail = html;
+        }
+      }
+      docSaveState.textContent = 'Guardado';
+    } catch (e) {
+      docSaveState.textContent = 'Error al guardar';
+    }
+  }, 600);
+});
+
+document.querySelectorAll('.docview-toolbar button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cmd = btn.dataset.cmd;
+    if (cmd === 'heading') document.execCommand('formatBlock', false, 'h3');
+    else document.execCommand(cmd, false, null);
+    docBody.focus();
+  });
 });
 
 checkSession();

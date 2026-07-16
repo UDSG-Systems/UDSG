@@ -220,6 +220,7 @@ export default {
           }
         }
         if (typeof body.description === "string") { fields.push("description = ?"); values.push(body.description); }
+        if (typeof body.report === "string") { fields.push("report = ?"); values.push(body.report); }
         if (body.due_date !== undefined) { fields.push("due_date = ?"); values.push(body.due_date || null); }
         if (fields.length === 0) {
           return json({ ok: false, error: "Nada para actualizar." }, 400, cors);
@@ -270,6 +271,7 @@ export default {
         const values = [];
         if (typeof body.title === "string") { fields.push("title = ?"); values.push(body.title.trim()); }
         if (body.done !== undefined) { fields.push("done = ?"); values.push(body.done ? 1 : 0); }
+        if (typeof body.detail === "string") { fields.push("detail = ?"); values.push(body.detail); }
         if (fields.length === 0) {
           return json({ ok: false, error: "Nada para actualizar." }, 400, cors);
         }
