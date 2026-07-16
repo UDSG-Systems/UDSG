@@ -109,6 +109,21 @@ function sessionCookie(value, maxAge) {
   return `${COOKIE_NAME}=${encodeURIComponent(value)}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${maxAge}`;
 }
 
+// Si el proyecto tiene subtareas, su avance se calcula solo (subtareas hechas / total).
+async function syncProjectProgress(env, projectId) {
+  const { results } = await env.DB.prepare(
+    "SELECT done FROM tasks WHERE project_id = ?"
+  )
+    .bind(projectId)
+    .all();
+  if (results.length === 0) return;
+  const done = results.filter((t) => t.done).length;
+  const progress = Math.round((done / results.length) * 100);
+  await env.DB.prepare("UPDATE projects SET progress = ?, updated_at = ? WHERE id = ?")
+    .bind(progress, new Date().toISOString(), projectId)
+    .run();
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -192,8 +207,17 @@ export default {
         if (VALID_STATUS.includes(body.status)) { fields.push("status = ?"); values.push(body.status); }
         if (VALID_PRIORITY.includes(body.priority)) { fields.push("priority = ?"); values.push(body.priority); }
         if (body.progress !== undefined) {
-          fields.push("progress = ?");
-          values.push(Math.max(0, Math.min(100, Number(body.progress) || 0)));
+          // El avance solo se puede fijar a mano si el proyecto no tiene subtareas;
+          // si las tiene, se calcula solo a partir de ellas (ver syncProjectProgress).
+          const { results: existingTasks } = await env.DB.prepare(
+            "SELECT id FROM tasks WHERE project_id = ? LIMIT 1"
+          )
+            .bind(id)
+            .all();
+          if (existingTasks.length === 0) {
+            fields.push("progress = ?");
+            values.push(Math.max(0, Math.min(100, Number(body.progress) || 0)));
+          }
         }
         if (typeof body.description === "string") { fields.push("description = ?"); values.push(body.description); }
         if (body.due_date !== undefined) { fields.push("due_date = ?"); values.push(body.due_date || null); }
@@ -234,6 +258,7 @@ export default {
         )
           .bind(projectId, body.title.trim(), position)
           .run();
+        await syncProjectProgress(env, projectId);
         return json({ ok: true, id: res.meta.last_row_id }, 201, cors);
       }
 
@@ -249,15 +274,19 @@ export default {
           return json({ ok: false, error: "Nada para actualizar." }, 400, cors);
         }
         values.push(id);
+        const taskRow = await env.DB.prepare("SELECT project_id FROM tasks WHERE id = ?").bind(id).first();
         await env.DB.prepare(`UPDATE tasks SET ${fields.join(", ")} WHERE id = ?`)
           .bind(...values)
           .run();
+        if (taskRow) await syncProjectProgress(env, taskRow.project_id);
         return json({ ok: true }, 200, cors);
       }
 
       if (taskMatch && request.method === "DELETE") {
         const id = Number(taskMatch[1]);
+        const taskRow = await env.DB.prepare("SELECT project_id FROM tasks WHERE id = ?").bind(id).first();
         await env.DB.prepare("DELETE FROM tasks WHERE id = ?").bind(id).run();
+        if (taskRow) await syncProjectProgress(env, taskRow.project_id);
         return json({ ok: true }, 200, cors);
       }
 
