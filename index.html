@@ -85,9 +85,26 @@
   .chip:hover:not(.active){background:var(--paper);}
 
   /* ---------------- HERO ILLUSTRATION (varias piezas, una visible a la vez) ---------------- */
-  .hero-illustration{position:relative; width:100%; aspect-ratio:560/400;}
-  .hero-illustration .sysmap{position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity 0.5s ease;}
-  .hero-illustration .sysmap.is-active{opacity:1;}
+  .hero-illustration{position:relative; width:100%; aspect-ratio:560/400; overflow:hidden;}
+  .hero-illustration .sysmap{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:0; transform:translateX(100%);
+    transition:transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+  }
+  .hero-illustration .sysmap.is-active{opacity:1; transform:translateX(0);}
+  .hero-illustration .sysmap.is-leaving{
+    opacity:0; transform:translateX(-32%);
+    transition:transform 0.5s cubic-bezier(0.4,0,1,1), opacity 0.4s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-illustration .sysmap{transition:opacity 0.3s ease; transform:none;}
+    .hero-illustration .sysmap.is-leaving{transform:none;}
+  }
+
+  /* ---------------- HERO COPY (texto que acompaña el cambio de slide) ---------------- */
+  .hero-copy-dynamic{transition:opacity 0.35s ease, transform 0.35s ease;}
+  .hero-copy-dynamic.is-swapping{opacity:0; transform:translateY(10px);}
+  @media (prefers-reduced-motion: reduce){ .hero-copy-dynamic{transition:none !important; transform:none !important; opacity:1 !important;} }
 
   /* ---------------- HERO (dark rounded card, inset from viewport edge) ---------------- */
   .hero-wrap{padding:6px 12px 0;}
@@ -353,9 +370,11 @@
 <section class="hero">
   <div class="hero-top">
     <div>
-      <div class="eyebrow load-in" style="transition-delay:0.05s;"><span class="dash"></span><span id="heroEyebrow">Deployment Model</span></div>
-      <h1 class="load-in" id="heroTitle" style="transition-delay:0.15s;">Del problema a la implementación.</h1>
-      <p class="load-in" id="heroDesc" style="transition-delay:0.25s;">Cinco etapas, una sola responsabilidad continua: comprender, diseñar, construir, desplegar y operar — hasta que el sistema funcione dentro de la operación real.</p>
+      <div class="hero-copy-dynamic" id="heroCopyDynamic">
+        <div class="eyebrow load-in" style="transition-delay:0.05s;"><span class="dash"></span><span id="heroEyebrow">Deployment Model</span></div>
+        <h1 class="load-in" id="heroTitle" style="transition-delay:0.15s;">Del problema a la implementación.</h1>
+        <p class="load-in" id="heroDesc" style="transition-delay:0.25s;">Cinco etapas, una sola responsabilidad continua: comprender, diseñar, construir, desplegar y operar — hasta que el sistema funcione dentro de la operación real.</p>
+      </div>
       <div class="hero-actions load-in" style="transition-delay:0.35s;">
         <a href="#contact" class="btn-primary">Iniciar un proyecto</a>
         <a href="#caps" class="btn-ghost">Explorar capacidades →</a>
@@ -720,18 +739,44 @@
     const heroEyebrow = document.getElementById('heroEyebrow');
     const heroTitle = document.getElementById('heroTitle');
     const heroDesc = document.getElementById('heroDesc');
+    const heroCopyDynamic = document.getElementById('heroCopyDynamic');
     if (!chips.length || !svgs.length) return;
 
     let active = 0;
     let advanceTimer = null;
+    let isFirstPaint = true;
 
+    // el "deck" completo (ilustración + texto) se mueve al cambiar de slide:
+    // la ilustración saliente se desliza hacia la izquierda mientras la
+    // entrante llega completa desde la derecha; el texto hace un crossfade corto
     function paintContent(i){
       const s = slides[i];
       if (!s) return;
-      heroEyebrow.textContent = s.eyebrow;
-      heroTitle.textContent = s.title;
-      heroDesc.textContent = s.desc;
-      svgs.forEach(svg => svg.classList.toggle('is-active', svg.dataset.slide === String(i)));
+      const nextSvg = svgs.find(svg => svg.dataset.slide === String(i));
+
+      if (isFirstPaint) {
+        // el slide 0 ya viene pintado en el HTML estático — no animar en la carga
+        isFirstPaint = false;
+        return;
+      }
+
+      const prevSvg = svgs.find(svg => svg.classList.contains('is-active'));
+      if (prevSvg && prevSvg !== nextSvg) {
+        prevSvg.classList.remove('is-active');
+        prevSvg.classList.add('is-leaving');
+        setTimeout(() => prevSvg.classList.remove('is-leaving'), 520);
+      }
+      if (nextSvg && nextSvg !== prevSvg) {
+        nextSvg.classList.add('is-active');
+      }
+
+      heroCopyDynamic.classList.add('is-swapping');
+      setTimeout(() => {
+        heroEyebrow.textContent = s.eyebrow;
+        heroTitle.textContent = s.title;
+        heroDesc.textContent = s.desc;
+        heroCopyDynamic.classList.remove('is-swapping');
+      }, 220);
     }
 
     function fillChip(chip){
