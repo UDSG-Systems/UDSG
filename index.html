@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UDSG — Preview de dirección visual</title>
+<title>UDSG® — Tecnología para operaciones reales</title>
+<meta name="description" content="UDSG diseña, desarrolla e implementa software, plataformas e infraestructura digital para organizaciones que necesitan resolver problemas específicos, conectar sus procesos y ampliar su capacidad tecnológica.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://udsg.dev/">
+<meta property="og:site_name" content="UDSG">
+<meta property="og:title" content="UDSG® — Tecnología para operaciones reales">
+<meta property="og:description" content="UDSG diseña, desarrolla e implementa software, plataformas e infraestructura digital para organizaciones que necesitan resolver problemas específicos, conectar sus procesos y ampliar su capacidad tecnológica.">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -63,7 +72,7 @@
     border:1px solid var(--copper); color:var(--copper-light);
     padding:9px 16px; text-transform:uppercase;
     transition:background 0.25s ease, color 0.25s ease;
-    cursor:pointer;
+    cursor:pointer; text-decoration:none; display:inline-block;
   }
   .nav-cta:hover{background:var(--copper); color:#0B0C0D;}
 
@@ -142,12 +151,13 @@
     transition:border-color 0.3s ease;
   }
   .deck-card:hover{border-color:var(--copper-light);}
-  .deck-card img{
+  .deck-card img, .deck-card video{
     width:100%; height:100%; object-fit:cover;
     filter:grayscale(65%) contrast(1.1) brightness(0.85);
     transition:filter 0.4s ease, transform 0.5s ease;
+    display:block;
   }
-  .deck-card:hover img{filter:grayscale(30%) contrast(1.1) brightness(0.95); transform:scale(1.06);}
+  .deck-card:hover img, .deck-card:hover video{filter:grayscale(30%) contrast(1.1) brightness(0.95); transform:scale(1.06);}
   .deck-card::after{
     content:'';
     position:absolute; inset:0;
@@ -308,7 +318,7 @@
     position:sticky; top:0; height:100vh; width:100%; overflow:hidden;
     background:
       linear-gradient(100deg, rgba(11,12,13,0.96) 0%, rgba(11,12,13,0.72) 42%, rgba(11,12,13,0.3) 100%),
-      url('https://picsum.photos/seed/udsg-deployment/1800/1400');
+      url('/assets/video/developmentindustry.jpg');
     background-size:cover; background-position:center;
     filter:grayscale(55%) contrast(1.1);
     margin-bottom:calc(-100vh);
@@ -361,7 +371,7 @@
     position:sticky; top:0; height:100vh;
     background:
       linear-gradient(15deg, rgba(222,220,211,0.96) 0%, rgba(222,220,211,0.55) 55%, rgba(222,220,211,0.9) 100%),
-      url('https://picsum.photos/seed/udsg-sectors/1800/1400');
+      url('/assets/img/logistica.jpg');
     background-size:cover; background-position:center;
     filter:grayscale(60%) contrast(1.05) brightness(1.15);
     margin-bottom:calc(-100vh);
@@ -442,15 +452,14 @@
   .diff-item p{font-size:13.5px; line-height:1.6; color:#5C5A52;}
 
   /* ---- COMPANY (full-bleed photo, text overlaid, off-center) ---- */
-  .company{position:relative; min-height:120vh; background:var(--graphite);}
+  .company{position:relative; min-height:100vh; background:var(--graphite); overflow:hidden;}
   .company-bg{
-    position:sticky; top:0; height:100vh; overflow:hidden;
+    position:absolute; inset:0; overflow:hidden;
     background:
       linear-gradient(100deg, rgba(11,12,13,0.94) 0%, rgba(11,12,13,0.4) 48%, rgba(11,12,13,0.85) 100%),
-      url('https://picsum.photos/seed/udsg-company/1800/1400');
+      url('/assets/video/servicesindustry.jpg');
     background-size:cover; background-position:center;
     filter:grayscale(55%) contrast(1.1);
-    margin-bottom:calc(-100vh);
   }
   .company-content{
     position:relative; z-index:2; min-height:100vh;
@@ -535,13 +544,13 @@
     <span class="subname">UNITED DEPLOYMENT SYSTEMS GROUP</span>
   </div>
   <div class="nav-links">
-    <a href="#">Capacidades</a>
-    <a href="#">Proyectos</a>
-    <a href="#">Sectores</a>
-    <a href="#">Compañía</a>
-    <a href="#">Contacto</a>
+    <a href="#capacidades">Capacidades</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#sectores">Sectores</a>
+    <a href="#compania">Compañía</a>
+    <a href="/solicitar/">Contacto</a>
   </div>
-  <div class="nav-cta">Iniciar un proyecto</div>
+  <a href="/solicitar/" class="nav-cta">Iniciar un proyecto</a>
 </nav>
 
 <section class="hero">
@@ -562,24 +571,26 @@
     <h1 class="load-in" style="transition-delay:0.22s;">Construimos tecnología para operaciones reales.</h1>
     <p class="load-in" style="transition-delay:0.34s;">UDSG diseña, desarrolla e implementa software, plataformas e infraestructura digital para organizaciones que necesitan resolver problemas específicos, conectar sus procesos y ampliar su capacidad tecnológica.</p>
     <div class="hero-actions load-in" style="transition-delay:0.46s;">
-      <a href="#" class="btn-primary">Iniciar un proyecto</a>
-      <a href="#" class="btn-ghost">Explorar capacidades →</a>
+      <a href="/solicitar/" class="btn-primary">Iniciar un proyecto</a>
+      <a href="#capacidades" class="btn-ghost">Explorar capacidades →</a>
     </div>
     <div class="deck-marquee load-in" style="transition-delay:0.58s;">
       <div class="deck-track" id="deckTrack">
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-empresas/400/280" alt=""><div class="deck-card-tag">Empresas</div></div>
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-educacion/400/280" alt=""><div class="deck-card-tag">Educación</div></div>
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-infraestructura/400/280" alt=""><div class="deck-card-tag">Infraestructura</div></div>
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-manufactura/400/280" alt=""><div class="deck-card-tag">Manufactura</div></div>
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-datos/400/280" alt=""><div class="deck-card-tag">Datos y sistemas</div></div>
-        <div class="deck-card"><img src="https://picsum.photos/seed/udsg-organizaciones/400/280" alt=""><div class="deck-card-tag">Organizaciones</div></div>
+        <div class="deck-card"><img src="/assets/img/agricultura.jpg" alt=""><div class="deck-card-tag">Agricultura</div></div>
+        <div class="deck-card"><img src="/assets/img/educacion.jpg" alt=""><div class="deck-card-tag">Educación</div></div>
+        <div class="deck-card"><img src="/assets/img/salud.jpg" alt=""><div class="deck-card-tag">Salud</div></div>
+        <div class="deck-card"><img src="/assets/img/hoteleria.jpg" alt=""><div class="deck-card-tag">Hotelería</div></div>
+        <div class="deck-card"><img src="/assets/img/logistica.jpg" alt=""><div class="deck-card-tag">Logística</div></div>
+        <div class="deck-card"><img src="/assets/img/restaurantes.jpg" alt=""><div class="deck-card-tag">Restaurantes</div></div>
+        <div class="deck-card"><video muted loop playsinline autoplay preload="metadata" poster="/assets/video/developmentindustry.jpg"><source src="/assets/video/developmentindustry.webm" type="video/webm"><source src="/assets/video/developmentindustry.mp4" type="video/mp4"></video><div class="deck-card-tag">Desarrollo</div></div>
         <!-- duplicado para loop continuo -->
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-empresas/400/280" alt=""><div class="deck-card-tag">Empresas</div></div>
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-educacion/400/280" alt=""><div class="deck-card-tag">Educación</div></div>
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-infraestructura/400/280" alt=""><div class="deck-card-tag">Infraestructura</div></div>
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-manufactura/400/280" alt=""><div class="deck-card-tag">Manufactura</div></div>
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-datos/400/280" alt=""><div class="deck-card-tag">Datos y sistemas</div></div>
-        <div class="deck-card" aria-hidden="true"><img src="https://picsum.photos/seed/udsg-organizaciones/400/280" alt=""><div class="deck-card-tag">Organizaciones</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/agricultura.jpg" alt=""><div class="deck-card-tag">Agricultura</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/educacion.jpg" alt=""><div class="deck-card-tag">Educación</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/salud.jpg" alt=""><div class="deck-card-tag">Salud</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/hoteleria.jpg" alt=""><div class="deck-card-tag">Hotelería</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/logistica.jpg" alt=""><div class="deck-card-tag">Logística</div></div>
+        <div class="deck-card" aria-hidden="true"><img src="/assets/img/restaurantes.jpg" alt=""><div class="deck-card-tag">Restaurantes</div></div>
+        <div class="deck-card" aria-hidden="true"><video muted loop playsinline autoplay preload="metadata" poster="/assets/video/developmentindustry.jpg"><source src="/assets/video/developmentindustry.webm" type="video/webm"><source src="/assets/video/developmentindustry.mp4" type="video/mp4"></video><div class="deck-card-tag">Desarrollo</div></div>
       </div>
     </div>
     <div class="hero-strip">
@@ -600,7 +611,7 @@
   </div>
 </section>
 
-<section class="caps">
+<section class="caps" id="capacidades">
   <div class="caps-head">
     <div>
       <div class="caps-eyebrow">02 / Capacidades</div>
@@ -612,42 +623,42 @@
       <span class="num">01</span>
       <h4>Desarrollo de software</h4>
       <p>Plataformas web, aplicaciones empresariales, herramientas internas y sistemas administrativos a medida.</p>
-      <div class="cap-readout"><span>REF 01.SW</span><span class="bar"><span class="bar-fill" style="width:82%;"></span></span><span>82%</span></div>
+      <div class="cap-readout"><span>REF 01.SW</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
     <div class="cap-item">
       <span class="num">02</span>
       <h4>Integración de sistemas</h4>
       <p>Conexión de bases de datos, servicios y herramientas de terceros con la operación existente.</p>
-      <div class="cap-readout"><span>REF 02.IN</span><span class="bar"><span class="bar-fill" style="width:68%;"></span></span><span>68%</span></div>
+      <div class="cap-readout"><span>REF 02.IN</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
     <div class="cap-item">
       <span class="num">03</span>
       <h4>Automatización</h4>
       <p>Digitalización de procesos, flujos de trabajo, generación documental y seguimiento operativo.</p>
-      <div class="cap-readout"><span>REF 03.AU</span><span class="bar"><span class="bar-fill" style="width:74%;"></span></span><span>74%</span></div>
+      <div class="cap-readout"><span>REF 03.AU</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
     <div class="cap-item">
       <span class="num">04</span>
       <h4>Inteligencia artificial aplicada</h4>
       <p>Asistentes, análisis, clasificación y búsqueda documental integrados en procesos controlados.</p>
-      <div class="cap-readout"><span>REF 04.AI</span><span class="bar"><span class="bar-fill" style="width:59%;"></span></span><span>59%</span></div>
+      <div class="cap-readout"><span>REF 04.AI</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
     <div class="cap-item">
       <span class="num">05</span>
       <h4>Infraestructura digital</h4>
       <p>Configuración y administración de hosting, servidores, despliegues y entornos productivos.</p>
-      <div class="cap-readout"><span>REF 05.IF</span><span class="bar"><span class="bar-fill" style="width:91%;"></span></span><span>91%</span></div>
+      <div class="cap-readout"><span>REF 05.IF</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
     <div class="cap-item">
       <span class="num">06</span>
       <h4>Operación tecnológica</h4>
       <p>Mantenimiento, soporte, monitoreo, seguridad y evolución continua de los sistemas.</p>
-      <div class="cap-readout"><span>REF 06.OP</span><span class="bar"><span class="bar-fill" style="width:77%;"></span></span><span>77%</span></div>
+      <div class="cap-readout"><span>REF 06.OP</span><span class="bar"><span class="bar-fill" style="width:100%;"></span></span><span>ACTIVO</span></div>
     </div>
   </div>
 </section>
 
-<section class="process">
+<section class="process" id="proceso">
   <div class="process-bg"></div>
   <div class="process-inner">
     <div class="process-rail">
@@ -666,7 +677,7 @@
   <p class="process-callout">El proyecto no termina cuando el software se publica. <span class="accent">Termina cuando funciona dentro de la operación.</span></p>
 </section>
 
-<section class="sectors">
+<section class="sectors" id="sectores">
   <div class="sectors-bg"></div>
   <div class="sectors-head">
     <div class="sec-label">04 / Sectores</div>
@@ -702,7 +713,7 @@
   </div>
 </section>
 
-<section class="company">
+<section class="company" id="compania">
   <div class="company-bg"></div>
   <div class="company-content">
     <div class="company-body">
@@ -720,8 +731,8 @@
   <h3>¿Qué necesita construir su organización?</h3>
   <p>Cuéntenos qué proceso necesita mejorar, qué sistema necesita desarrollar o qué capacidad tecnológica necesita implementar.</p>
   <div class="cta-final-actions">
-    <a href="#" class="btn-primary">Iniciar un proyecto</a>
-    <a href="mailto:contacto@udsg.example" class="secondary">contacto@udsg.example</a>
+    <a href="/solicitar/" class="btn-primary">Iniciar un proyecto</a>
+    <a href="mailto:acceso@udsg.dev" class="secondary">acceso@udsg.dev</a>
   </div>
 </section>
 
@@ -734,11 +745,11 @@
     </div>
     <div class="footer-col">
       <h5>Navegación</h5>
-      <a href="#">Capacidades</a>
-      <a href="#">Proyectos</a>
-      <a href="#">Sectores</a>
-      <a href="#">Compañía</a>
-      <a href="#">Contacto</a>
+      <a href="#capacidades">Capacidades</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#sectores">Sectores</a>
+      <a href="#compania">Compañía</a>
+      <a href="/solicitar/">Contacto</a>
     </div>
     <div class="footer-col">
       <h5>Legal</h5>
@@ -758,6 +769,12 @@
     requestAnimationFrame(() => {
       document.querySelectorAll('.load-in').forEach(el => el.classList.add('shown'));
     });
+  });
+
+  // ---- DECK MARQUEE: asegurar reproducción del video (autoplay puede fallar sin gesto) ----
+  document.querySelectorAll('.deck-card video').forEach(v => {
+    if (v.readyState === 0) v.load();
+    v.play().catch(() => {});
   });
 
   // ---- LIVE CLOCK ----
