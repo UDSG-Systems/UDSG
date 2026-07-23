@@ -294,21 +294,22 @@
   .process{background:var(--navy); color:var(--paper-text); padding:120px 48px;}
   .proc-line-wrap{max-width:960px; margin:0 auto; position:relative; padding-left:70px;}
 
-  /* pista vertical: línea + pulso descendiendo de capa en capa, en bucle continuo */
+  /* pista vertical: tráfico de datos constante — varios paquetes viajando a la vez, sin pausa */
   .proc-flow-track{position:absolute; top:25px; bottom:25px; left:25px; width:1px; background:var(--line-on-dark); z-index:0;}
   .proc-flow-track::before, .proc-flow-track::after{
     content:''; position:absolute; left:-3px; height:1px; width:7px; background:var(--line-on-dark);
   }
   .proc-flow-track::before{top:0;} .proc-flow-track::after{bottom:0;}
   .proc-flow-pulse{
-    position:absolute; left:50%; top:0; width:7px; height:7px; margin-left:-3.5px; margin-top:-3.5px;
-    border-radius:50%; background:#9DB2FF; box-shadow:0 0 12px 3px rgba(140,160,255,0.75);
-    animation:proc-flow-move-v 7s linear infinite;
+    position:absolute; left:50%; top:0; width:6px; height:6px; margin-left:-3px; margin-top:-3px;
+    border-radius:50%; background:#9DB2FF; box-shadow:0 0 10px 2px rgba(140,160,255,0.7);
+    animation:proc-flow-move-v 3.6s linear infinite;
+    animation-delay:calc(var(--pi) * -0.6s);
   }
   @keyframes proc-flow-move-v{
     0%{top:0%; opacity:0;}
-    4%{opacity:1;}
-    96%{opacity:1;}
+    6%{opacity:1;}
+    92%{opacity:1;}
     100%{top:100%; opacity:0;}
   }
 
@@ -334,18 +335,18 @@
     background:var(--navy); display:flex; align-items:center; justify-content:center;
     color:#8CA0FF; z-index:2;
     transition:border-color 0.3s ease, background 0.3s ease;
-    animation:proc-node-flash 7s ease-in-out infinite;
+    animation:proc-node-flash 0.6s ease-out infinite;
   }
   .proc-icon{width:21px; height:21px;}
-  .proc-step:nth-child(1) .proc-dot{animation-delay:0.42s;}
-  .proc-step:nth-child(2) .proc-dot{animation-delay:1.82s;}
-  .proc-step:nth-child(3) .proc-dot{animation-delay:3.22s;}
-  .proc-step:nth-child(4) .proc-dot{animation-delay:4.62s;}
-  .proc-step:nth-child(5) .proc-dot{animation-delay:6.02s;}
+  .proc-step:nth-child(1) .proc-dot{animation-delay:0.36s;}
+  .proc-step:nth-child(2) .proc-dot{animation-delay:0.48s;}
+  .proc-step:nth-child(3) .proc-dot{animation-delay:0s;}
+  .proc-step:nth-child(4) .proc-dot{animation-delay:0.12s;}
+  .proc-step:nth-child(5) .proc-dot{animation-delay:0.24s;}
   @keyframes proc-node-flash{
     0%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
-    3%{box-shadow:0 0 0 9px rgba(140,160,255,0.32);}
-    16%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
+    15%{box-shadow:0 0 0 8px rgba(140,160,255,0.3);}
+    60%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
     100%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
   }
   .proc-step.in-view .proc-dot{border-color:var(--accent); background:var(--accent-deep);}
@@ -645,7 +646,14 @@
     <h2>Del problema a la implementación.</h2>
   </div>
   <div class="proc-line-wrap">
-    <div class="proc-flow-track" aria-hidden="true"><span class="proc-flow-pulse"></span></div>
+    <div class="proc-flow-track" aria-hidden="true">
+      <span class="proc-flow-pulse" style="--pi:0"></span>
+      <span class="proc-flow-pulse" style="--pi:1"></span>
+      <span class="proc-flow-pulse" style="--pi:2"></span>
+      <span class="proc-flow-pulse" style="--pi:3"></span>
+      <span class="proc-flow-pulse" style="--pi:4"></span>
+      <span class="proc-flow-pulse" style="--pi:5"></span>
+    </div>
     <div class="proc-steps" id="procSteps">
       <div class="proc-step">
         <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg></div>
