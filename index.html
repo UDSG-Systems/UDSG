@@ -39,14 +39,19 @@
 
   /* ---------------- NAV ---------------- */
   nav{
-    position:sticky; top:0; z-index:50;
+    position:sticky; top:16px; z-index:50;
     display:flex; align-items:center; justify-content:space-between;
-    padding:18px 40px;
-    background:rgba(233,233,228,0.92);
-    backdrop-filter:blur(8px);
-    transition:padding 0.3s ease;
+    padding:14px 28px;
+    margin:0 20px;
+    border-radius:999px;
+    background:rgba(233,233,228,0.75);
+    -webkit-backdrop-filter:blur(16px) saturate(1.6);
+    backdrop-filter:blur(16px) saturate(1.6);
+    border:1px solid rgba(255,255,255,0.5);
+    box-shadow:0 10px 34px rgba(20,17,10,0.10), inset 0 1px 0 rgba(255,255,255,0.4);
+    transition:padding 0.3s ease, top 0.3s ease, box-shadow 0.3s ease;
   }
-  nav.scrolled{padding:12px 40px;}
+  nav.scrolled{padding:10px 24px; top:10px; box-shadow:0 14px 40px rgba(20,17,10,0.14), inset 0 1px 0 rgba(255,255,255,0.4);}
   .nav-left{display:flex; align-items:baseline; gap:12px;}
   .nav-left .wordmark{font-family:'Space Grotesk'; font-weight:600; font-size:17px;}
   .nav-left .subname{font-family:'IBM Plex Mono'; font-size:10px; color:#7C7C74; letter-spacing:0.04em; transition:opacity 0.3s ease;}
@@ -384,7 +389,8 @@
 
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width:900px){
-    nav{padding:14px 20px;}
+    nav{padding:12px 18px; margin:0 10px;}
+    .nav-left .subname{display:none;}
     .menu-top{padding:14px 20px;}
     .menu-body{grid-template-columns:1fr; gap:40px; padding:48px 20px 60px;}
     .menu-about{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:32px;}
