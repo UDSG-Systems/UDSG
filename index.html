@@ -272,11 +272,9 @@
     line-height:1.4; color:var(--ink-soft);
   }
   .decl-quote .accent{color:var(--accent);}
-  .decl-panel{border:1px solid var(--line); background:var(--paper); padding:36px;}
-  .decl-panel p{font-size:15px; line-height:1.75; color:var(--ink-soft); margin-bottom:20px;}
-  .decl-facts{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:28px; padding-top:24px; border-top:1px solid var(--line);}
-  .decl-fact .fnum{font-family:'Space Grotesk'; font-weight:600; font-size:22px; color:var(--accent); display:block;}
-  .decl-fact .flabel{font-family:'IBM Plex Mono'; font-size:10px; color:#8A8F9C; letter-spacing:0.04em; text-transform:uppercase; margin-top:4px; display:block;}
+  .decl-panel{border:1px solid var(--line-on-dark); background:var(--ink); padding:36px;}
+  .decl-panel p{font-size:15px; line-height:1.75; color:var(--paper-text); margin-bottom:20px;}
+  .decl-panel p:last-child{margin-bottom:0;}
 
   /* ---------------- CAPABILITIES ---------------- */
   .caps{background:var(--paper); padding:120px 48px;}
@@ -293,21 +291,58 @@
 
   /* ---------------- PROCESS (stepper, not photo) ---------------- */
   .process{background:var(--navy); color:var(--paper-text); padding:120px 48px;}
-  .proc-line-wrap{max-width:1180px; margin:0 auto; position:relative;}
-  .proc-steps{display:grid; grid-template-columns:repeat(5,1fr); gap:20px; position:relative;}
-  .proc-connector{position:absolute; top:17px; left:0; right:0; height:1px; background:var(--line-on-dark); z-index:0;}
-  .proc-step{position:relative; z-index:1;}
+  .proc-line-wrap{max-width:1180px; margin:0 auto; position:relative; padding-top:22px;}
+
+  /* pista del flujo: línea + pulso viajando de nodo en nodo, en bucle continuo */
+  .proc-flow-track{position:absolute; top:44px; left:0; right:0; height:1px; background:var(--line-on-dark); z-index:0; overflow:visible;}
+  .proc-flow-track::before, .proc-flow-track::after{
+    content:''; position:absolute; top:-3px; width:1px; height:7px; background:var(--line-on-dark);
+  }
+  .proc-flow-track::before{left:0;} .proc-flow-track::after{right:0;}
+  .proc-flow-pulse{
+    position:absolute; top:50%; left:0; width:7px; height:7px; margin-top:-3.5px; margin-left:-3.5px;
+    border-radius:50%; background:#9DB2FF; box-shadow:0 0 12px 3px rgba(140,160,255,0.75);
+    animation:proc-flow-move 6s linear infinite;
+  }
+  @keyframes proc-flow-move{
+    0%{left:0%; opacity:0;}
+    4%{opacity:1;}
+    96%{opacity:1;}
+    100%{left:100%; opacity:0;}
+  }
+
+  .proc-steps{display:grid; grid-template-columns:repeat(5,1fr); gap:20px; position:relative; z-index:1;}
+  .proc-step{position:relative;}
   .proc-dot{
-    width:34px; height:34px; border-radius:50%; border:1px solid var(--line-on-dark);
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--line-on-dark);
     background:var(--navy); display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk'; font-weight:600; font-size:12px; color:#8CA0FF; margin-bottom:22px;
+    color:#8CA0FF; margin-bottom:20px; position:relative;
     transition:border-color 0.3s ease, background 0.3s ease;
+    animation:proc-node-flash 6s ease-in-out infinite;
+  }
+  .proc-icon{width:19px; height:19px;}
+  .proc-step:nth-child(1) .proc-dot{animation-delay:0.42s;}
+  .proc-step:nth-child(2) .proc-dot{animation-delay:1.62s;}
+  .proc-step:nth-child(3) .proc-dot{animation-delay:2.82s;}
+  .proc-step:nth-child(4) .proc-dot{animation-delay:4.02s;}
+  .proc-step:nth-child(5) .proc-dot{animation-delay:5.22s;}
+  @keyframes proc-node-flash{
+    0%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
+    3%{box-shadow:0 0 0 9px rgba(140,160,255,0.32);}
+    16%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(140,160,255,0);}
   }
   .proc-step.in-view .proc-dot{border-color:var(--accent); background:var(--accent-deep);}
+  .proc-tag{font-family:'IBM Plex Mono'; font-size:9.5px; letter-spacing:0.1em; color:#5B6180; text-transform:uppercase; display:block; margin-bottom:10px;}
   .proc-step h3{font-family:'Space Grotesk'; font-weight:500; font-size:16px; margin-bottom:10px;}
-  .proc-step p{font-size:13px; line-height:1.6; color:var(--muted-on-dark);}
+  .proc-step p{font-size:13px; line-height:1.6; color:var(--muted-on-dark); margin-bottom:14px;}
+  .proc-out{font-family:'IBM Plex Mono'; font-size:9.5px; letter-spacing:0.02em; color:#7A8199; display:block; padding-top:12px; border-top:1px solid var(--line-on-dark);}
+  @media (prefers-reduced-motion: reduce){
+    .proc-flow-pulse{display:none;}
+    .proc-dot{animation:none;}
+  }
   .process-callout{
-    max-width:1180px; margin:90px auto 0; padding-top:36px; border-top:1px solid var(--line-on-dark);
+    max-width:1180px; margin:70px auto 0; padding-top:36px; border-top:1px solid var(--line-on-dark);
     font-family:'Space Grotesk'; font-weight:500; font-size:clamp(19px,2.1vw,27px); line-height:1.4;
   }
   .process-callout .accent{color:#8CA0FF;}
@@ -402,7 +437,8 @@
     .decl-grid{grid-template-columns:1fr; gap:32px;}
     .caps-list{grid-template-columns:1fr;}
     .proc-steps{grid-template-columns:1fr; gap:32px;}
-    .proc-connector{display:none;}
+    .proc-flow-track{display:none;}
+    .proc-line-wrap{padding-top:0;}
     .sectors-grid{grid-template-columns:1fr;}
     .engage-grid{grid-template-columns:1fr; gap:28px;}
     .engage-item{border-left:none !important; padding-left:0 !important;}
@@ -514,10 +550,6 @@
     <div class="decl-panel">
       <p>Participamos en cada etapa: análisis, arquitectura, desarrollo, implementación y operación continua — sin entregar el proyecto a la mitad del camino.</p>
       <p>Medimos el resultado en la operación diaria, no en la demostración.</p>
-      <div class="decl-facts">
-        <div class="decl-fact"><span class="fnum">01–06</span><span class="flabel">Capacidades técnicas</span></div>
-        <div class="decl-fact"><span class="fnum">100%</span><span class="flabel">Arquitectura a medida</span></div>
-      </div>
     </div>
   </div>
 </section>
@@ -581,13 +613,43 @@
     <h2>Del problema a la implementación.</h2>
   </div>
   <div class="proc-line-wrap">
+    <div class="proc-flow-track" aria-hidden="true"><span class="proc-flow-pulse"></span></div>
     <div class="proc-steps" id="procSteps">
-      <div class="proc-step"><div class="proc-dot">01</div><h3>Comprender</h3><p>Analizamos la operación, los usuarios y el resultado necesario.</p></div>
-      <div class="proc-step"><div class="proc-dot">02</div><h3>Diseñar</h3><p>Definimos arquitectura, experiencia e integraciones.</p></div>
-      <div class="proc-step"><div class="proc-dot">03</div><h3>Construir</h3><p>Desarrollamos mediante ciclos progresivos de validación.</p></div>
-      <div class="proc-step"><div class="proc-dot">04</div><h3>Desplegar</h3><p>Implementamos y preparamos infraestructura y usuarios.</p></div>
-      <div class="proc-step"><div class="proc-dot">05</div><h3>Operar</h3><p>Mantenemos y evolucionamos tras el lanzamiento.</p></div>
-      <div class="proc-connector"></div>
+      <div class="proc-step">
+        <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg></div>
+        <span class="proc-tag">Fase 01</span>
+        <h3>Comprender</h3>
+        <p>Analizamos la operación, los usuarios, los sistemas actuales y el resultado que necesita alcanzarse.</p>
+        <span class="proc-out">Entregable — diagnóstico operativo</span>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l3.5-1L18 8.5 15.5 6 5 16.5 4 20z"/><path d="M13.5 7.5l3 3"/></svg></div>
+        <span class="proc-tag">Fase 02</span>
+        <h3>Diseñar</h3>
+        <p>Definimos arquitectura, flujos de datos e integraciones, con el alcance técnico ya delimitado.</p>
+        <span class="proc-out">Entregable — arquitectura técnica</span>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6L4 12l5 6"/><path d="M15 6l5 6-5 6"/></svg></div>
+        <span class="proc-tag">Fase 03</span>
+        <h3>Construir</h3>
+        <p>Desarrollamos mediante ciclos progresivos de validación, con entregas revisables en cada etapa.</p>
+        <span class="proc-out">Entregable — sistema funcional por ciclos</span>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v10"/><path d="M8 7l4-4 4 4"/><path d="M5 21c1-4 3-6 7-6s6 2 7 6"/></svg></div>
+        <span class="proc-tag">Fase 04</span>
+        <h3>Desplegar</h3>
+        <p>Implementamos la solución y preparamos infraestructura, accesos y usuarios para operar.</p>
+        <span class="proc-out">Entregable — sistema en producción</span>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot"><svg class="proc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 11A8 8 0 0 0 6.3 6.3M4 13a8 8 0 0 0 13.7 4.7"/><path d="M18 4v4h-4M6 20v-4h4"/></svg></div>
+        <span class="proc-tag">Fase 05</span>
+        <h3>Operar</h3>
+        <p>Mantenemos, monitoreamos y evolucionamos el sistema conforme cambian las necesidades reales.</p>
+        <span class="proc-out">Entregable — soporte y evolución continua</span>
+      </div>
     </div>
   </div>
   <p class="process-callout">El proyecto no termina cuando el software se publica. <span class="accent">Termina cuando funciona dentro de la operación.</span></p>
