@@ -52,7 +52,8 @@
     transition:padding 0.3s ease, top 0.3s ease, box-shadow 0.3s ease;
   }
   nav.scrolled{padding:10px 24px; top:10px; box-shadow:0 14px 40px rgba(20,17,10,0.14), inset 0 1px 0 rgba(255,255,255,0.4);}
-  .nav-left{display:flex; align-items:baseline; gap:12px;}
+  .nav-left{display:flex; align-items:center; gap:12px;}
+  .logo-mark{height:22px; width:auto; display:block;}
   .nav-left .wordmark{font-family:'Space Grotesk'; font-weight:600; font-size:17px;}
   .nav-left .subname{font-family:'IBM Plex Mono'; font-size:10px; color:#7C7C74; letter-spacing:0.04em; transition:opacity 0.3s ease;}
   nav.scrolled .subname{opacity:0; width:0;}
@@ -452,7 +453,7 @@
 
 <nav>
   <div class="nav-left">
-    <span class="wordmark">UDSG®</span>
+    <img class="logo-mark" src="/assets/img/logo-udsg.png" alt="UDSG">
     <span class="subname">UNITED DEPLOYMENT SYSTEMS GROUP</span>
   </div>
   <div class="nav-right">
@@ -466,7 +467,7 @@
 <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
   <div class="menu-top">
     <div class="nav-left">
-      <span class="wordmark">UDSG®</span>
+      <img class="logo-mark" src="/assets/img/logo-udsg.png" alt="UDSG">
       <span class="subname">UNITED DEPLOYMENT SYSTEMS GROUP</span>
     </div>
     <button type="button" class="nav-icon" id="menuClose" aria-label="Cerrar menú">
@@ -739,7 +740,7 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="wordmark">UDSG®</div>
+      <img class="logo-mark" src="/assets/img/logo-udsg-white.png" alt="UDSG" style="margin-bottom:10px;">
       <div class="subname">UNITED DEPLOYMENT SYSTEMS GROUP</div>
       <p>Private Technology and Software Engineering Company.</p>
     </div>
