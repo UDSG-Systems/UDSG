@@ -303,6 +303,25 @@
   .cap-readout .bar{flex:1; height:2px; background:var(--gray-100); position:relative; overflow:hidden;}
   .cap-readout .bar-fill{position:absolute; left:0; top:0; height:100%; background:var(--accent);}
 
+  /* ---------------- CHIP MARQUEE (capacidades en movimiento continuo) ---------------- */
+  .chip-marquee{background:var(--paper); padding:0 0 100px; display:flex; flex-direction:column; gap:14px;}
+  .marquee-row{
+    overflow:hidden; width:100%;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .marquee-track{display:flex; gap:10px; width:max-content; animation:marquee-left 36s linear infinite;}
+  .marquee-row.marquee-reverse .marquee-track{animation-name:marquee-right;}
+  .marquee-chip{
+    flex:0 0 auto; display:inline-flex; align-items:center;
+    padding:9px 18px; border-radius:999px; background:var(--gray-100); border:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.01em; color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  @keyframes marquee-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @keyframes marquee-right{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
   /* ---------------- PROCESS (stepper, not photo) ---------------- */
   .process{background:var(--navy); color:var(--paper-text); padding:120px 48px;}
   .proc-line-wrap{max-width:960px; margin:0 auto; position:relative; padding-left:70px;}
@@ -708,6 +727,82 @@
       <h3>Operación tecnológica</h3>
       <p>Mantenimiento, soporte, monitoreo, seguridad y evolución continua de los sistemas.</p>
       <div class="cap-readout"><span>REF 06.OP</span><span class="bar"><span class="bar-fill" style="width:77%;"></span></span><span>77%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHIP MARQUEE ================= -->
+<section class="chip-marquee" aria-hidden="true">
+  <div class="marquee-row">
+    <div class="marquee-track" style="animation-duration:36s;">
+      <span class="marquee-chip">CRM</span>
+      <span class="marquee-chip">ERP</span>
+      <span class="marquee-chip">Dashboards</span>
+      <span class="marquee-chip">Portales de clientes</span>
+      <span class="marquee-chip">Aplicaciones móviles</span>
+      <span class="marquee-chip">Plataformas web</span>
+      <span class="marquee-chip">Automatización</span>
+      <span class="marquee-chip">Inteligencia artificial</span>
+      <span class="marquee-chip">Gestión de proyectos</span>
+      <span class="marquee-chip">Inventarios</span>
+      <span class="marquee-chip">CRM</span>
+      <span class="marquee-chip">ERP</span>
+      <span class="marquee-chip">Dashboards</span>
+      <span class="marquee-chip">Portales de clientes</span>
+      <span class="marquee-chip">Aplicaciones móviles</span>
+      <span class="marquee-chip">Plataformas web</span>
+      <span class="marquee-chip">Automatización</span>
+      <span class="marquee-chip">Inteligencia artificial</span>
+      <span class="marquee-chip">Gestión de proyectos</span>
+      <span class="marquee-chip">Inventarios</span>
+    </div>
+  </div>
+  <div class="marquee-row marquee-reverse">
+    <div class="marquee-track" style="animation-duration:44s;">
+      <span class="marquee-chip">Logística</span>
+      <span class="marquee-chip">Ventas</span>
+      <span class="marquee-chip">Facturación</span>
+      <span class="marquee-chip">Recursos humanos</span>
+      <span class="marquee-chip">Atención al cliente</span>
+      <span class="marquee-chip">Reservaciones</span>
+      <span class="marquee-chip">Educación</span>
+      <span class="marquee-chip">Comercio electrónico</span>
+      <span class="marquee-chip">Gestión documental</span>
+      <span class="marquee-chip">Analítica de datos</span>
+      <span class="marquee-chip">Logística</span>
+      <span class="marquee-chip">Ventas</span>
+      <span class="marquee-chip">Facturación</span>
+      <span class="marquee-chip">Recursos humanos</span>
+      <span class="marquee-chip">Atención al cliente</span>
+      <span class="marquee-chip">Reservaciones</span>
+      <span class="marquee-chip">Educación</span>
+      <span class="marquee-chip">Comercio electrónico</span>
+      <span class="marquee-chip">Gestión documental</span>
+      <span class="marquee-chip">Analítica de datos</span>
+    </div>
+  </div>
+  <div class="marquee-row">
+    <div class="marquee-track" style="animation-duration:32s;">
+      <span class="marquee-chip">Sistemas internos</span>
+      <span class="marquee-chip">Órdenes de trabajo</span>
+      <span class="marquee-chip">Control de operaciones</span>
+      <span class="marquee-chip">Integraciones</span>
+      <span class="marquee-chip">APIs</span>
+      <span class="marquee-chip">Mapas interactivos</span>
+      <span class="marquee-chip">Portales administrativos</span>
+      <span class="marquee-chip">Software bajo demanda</span>
+      <span class="marquee-chip">Plataformas SaaS</span>
+      <span class="marquee-chip">Herramientas empresariales</span>
+      <span class="marquee-chip">Sistemas internos</span>
+      <span class="marquee-chip">Órdenes de trabajo</span>
+      <span class="marquee-chip">Control de operaciones</span>
+      <span class="marquee-chip">Integraciones</span>
+      <span class="marquee-chip">APIs</span>
+      <span class="marquee-chip">Mapas interactivos</span>
+      <span class="marquee-chip">Portales administrativos</span>
+      <span class="marquee-chip">Software bajo demanda</span>
+      <span class="marquee-chip">Plataformas SaaS</span>
+      <span class="marquee-chip">Herramientas empresariales</span>
     </div>
   </div>
 </section>
