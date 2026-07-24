@@ -492,6 +492,47 @@
     .company-grid{grid-template-columns:1fr;}
     .footer-top{grid-template-columns:1fr; gap:28px;}
   }
+
+  /* ---------------- PANEL "INICIAR UN PROYECTO" (reemplaza la página /solicitar/) ---------------- */
+  .req-overlay{position:fixed; inset:0; background:rgba(8,9,11,0.55); backdrop-filter:blur(2px); z-index:998; opacity:0; pointer-events:none; transition:opacity .3s ease;}
+  .req-overlay.is-open{opacity:1; pointer-events:auto;}
+  .req-drawer{
+    position:fixed; top:0; right:0; height:100%; width:min(460px,100%);
+    background:#14161A; color:#F3F4F7; z-index:999;
+    box-shadow:-24px 0 60px rgba(0,0,0,0.35);
+    transform:translateX(100%); transition:transform .4s cubic-bezier(0.16,1,0.3,1);
+    display:flex; flex-direction:column; overflow-y:auto;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  .req-drawer.is-open{transform:translateX(0);}
+  .req-drawer-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding:32px 32px 20px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .req-eyebrow{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#8890A6; margin-bottom:10px;}
+  .req-drawer-head h3{font-size:21px; font-weight:600; letter-spacing:-0.01em; line-height:1.25; margin:0; color:#fff;}
+  .req-close{background:none; border:1px solid rgba(255,255,255,0.16); color:#fff; width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px; flex-shrink:0; transition:.15s;}
+  .req-close:hover{background:rgba(255,255,255,0.08);}
+  .req-drawer-body{padding:26px 32px 40px; display:flex; flex-direction:column; gap:18px;}
+  .req-lede{font-size:14px; line-height:1.6; color:#B7BCCC; margin:0 0 4px;}
+  .req-field{display:flex; flex-direction:column; gap:8px;}
+  .req-field label{font-size:12px; font-weight:500; color:#C7CCDB; display:flex; justify-content:space-between; gap:8px;}
+  .req-field label em{color:#FF6B6B; font-style:normal;}
+  .req-field input, .req-field select, .req-field textarea{
+    background:#1D2027; border:1px solid rgba(255,255,255,0.12); color:#fff;
+    border-radius:10px; padding:12px 14px; font-size:14px; font-family:inherit;
+    transition:border-color .15s ease;
+  }
+  .req-field input:focus, .req-field select:focus, .req-field textarea:focus{outline:none; border-color:#2F4BFF;}
+  .req-field.err input, .req-field.err textarea{border-color:#FF6B6B;}
+  .req-field textarea{resize:vertical; min-height:110px;}
+  .req-count{font-weight:400; color:#7A8199; font-size:11px;}
+  .req-submit{
+    background:#2F4BFF; color:#fff; border:none; border-radius:999px; padding:14px 22px;
+    font-size:14px; font-weight:500; cursor:pointer; transition:background .15s ease; margin-top:6px;
+  }
+  .req-submit:hover{background:#1B2C99;}
+  .req-submit:disabled{opacity:.7; cursor:default;}
+  .req-msg{font-family:'JetBrains Mono',monospace; font-size:12px; min-height:16px;}
+  .req-note{font-size:11px; color:#7A8199; line-height:1.5;}
+  @media (max-width:560px){ .req-drawer{width:100%;} }
 </style>
 </head>
 <body>
@@ -794,7 +835,7 @@
   <h2>¿Qué necesita construir su organización?</h2>
   <p>Cuéntenos qué proceso necesita mejorar, qué sistema necesita desarrollar o qué capacidad tecnológica necesita implementar.</p>
   <div class="cta-final-actions">
-    <a href="/solicitar/" class="btn-primary">Iniciar un proyecto</a>
+    <a href="#" class="btn-primary js-open-request">Iniciar un proyecto</a>
     <a href="mailto:acceso@udsg.dev" class="secondary">acceso@udsg.dev</a>
   </div>
 </section>
@@ -824,6 +865,48 @@
     <span class="copyright">© 2026 United Deployment Systems Group. All rights reserved.</span>
   </div>
 </footer>
+
+<div class="req-overlay" id="reqOverlay"></div>
+<aside class="req-drawer" id="reqDrawer" aria-hidden="true">
+  <div class="req-drawer-head">
+    <div>
+      <div class="req-eyebrow">Formulario 14 · Inicio de proyecto</div>
+      <h3>Cuéntanos cómo opera tu organización</h3>
+    </div>
+    <button class="req-close" id="reqClose" aria-label="Cerrar" type="button">✕</button>
+  </div>
+  <div class="req-drawer-body">
+    <p class="req-lede">Con esa información diseñamos la primera propuesta de intervención tecnológica. Te contactaremos para agendar una conversación.</p>
+    <div class="req-field"><label>Nombre / Organización <em>*</em></label><input type="text" id="fOrg" placeholder="—" autocomplete="name"></div>
+    <div class="req-field"><label>Correo de contacto <em>*</em></label><input type="email" id="fMail" placeholder="—" autocomplete="email"></div>
+    <div class="req-field"><label>Tipo de necesidad</label>
+      <select id="fTipo">
+        <option>Plataforma o sistema interno</option>
+        <option>Automatización de procesos</option>
+        <option>Sitio, portal o aplicación</option>
+        <option>Infraestructura y hosting</option>
+        <option>Soporte y mantenimiento continuo</option>
+        <option>No estoy seguro</option>
+      </select>
+    </div>
+    <div class="req-field"><label>Urgencia</label>
+      <select id="fUrg">
+        <option>Sin fecha definida</option>
+        <option>Este mes</option>
+        <option>1–2 meses</option>
+        <option>3+ meses</option>
+      </select>
+    </div>
+    <div class="req-field">
+      <label>Descripción de la necesidad <em>*</em> <span class="req-count" id="reqCount">0 / 400</span></label>
+      <textarea id="fDesc" rows="5" maxlength="400" placeholder="Cómo opera tu organización hoy, qué necesita y qué te gustaría lograr."></textarea>
+    </div>
+    <button class="req-submit" id="reqSend" type="button">Enviar solicitud</button>
+    <div class="req-msg" id="reqMsg"></div>
+    <div class="req-note">Campos marcados con * obligatorios · Te contactaremos para agendar una conversación</div>
+  </div>
+</aside>
+<script src="/request-drawer.js"></script>
 
 <script>
   // load-in

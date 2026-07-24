@@ -21,7 +21,7 @@
 
 <header class="site-header">
   <a href="/" class="brand">UDSG<sup>®</sup></a>
-  <a href="/solicitar/" class="header-cta">Solicitar</a>
+  <a href="#" class="header-cta js-open-request">Solicitar</a>
 </header>
 
 <section class="hero" style="padding-bottom:56px">
@@ -99,7 +99,7 @@
       <h2>¿Listo para operar de otra forma?</h2>
       <p class="lede">El primer paso siempre es el mismo: contarnos cómo opera tu organización hoy.</p>
       <div class="hero-actions" style="justify-content:center;margin-top:36px">
-        <a class="btn solid on-dark" href="/solicitar/">Solicitar diagnóstico</a>
+        <a class="btn solid on-dark js-open-request" href="#">Solicitar diagnóstico</a>
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
       </div>
       <div>
         <h6>Participar</h6>
-        <a href="/solicitar/">Solicitar proyecto</a>
+        <a href="#" class="js-open-request">Solicitar proyecto</a>
         <a href="mailto:acceso@udsg.dev">Contacto</a>
       </div>
     </div>
@@ -132,6 +132,48 @@
   </div>
 </footer>
 
+<div class="req-overlay" id="reqOverlay"></div>
+<aside class="req-drawer" id="reqDrawer" aria-hidden="true">
+  <div class="req-drawer-head">
+    <div>
+      <div class="req-eyebrow">Formulario 14 · Inicio de proyecto</div>
+      <h3>Cuéntanos cómo opera tu organización</h3>
+    </div>
+    <button class="req-close" id="reqClose" aria-label="Cerrar" type="button">✕</button>
+  </div>
+  <div class="req-drawer-body">
+    <p class="req-lede">Con esa información diseñamos la primera propuesta de intervención tecnológica. Te contactaremos para agendar una conversación.</p>
+    <div class="req-field"><label>Nombre / Organización <em>*</em></label><input type="text" id="fOrg" placeholder="—" autocomplete="name"></div>
+    <div class="req-field"><label>Correo de contacto <em>*</em></label><input type="email" id="fMail" placeholder="—" autocomplete="email"></div>
+    <div class="req-field"><label>Tipo de necesidad</label>
+      <select id="fTipo">
+        <option>Plataforma o sistema interno</option>
+        <option>Automatización de procesos</option>
+        <option>Sitio, portal o aplicación</option>
+        <option>Infraestructura y hosting</option>
+        <option>Soporte y mantenimiento continuo</option>
+        <option>No estoy seguro</option>
+      </select>
+    </div>
+    <div class="req-field"><label>Urgencia</label>
+      <select id="fUrg">
+        <option>Sin fecha definida</option>
+        <option>Este mes</option>
+        <option>1–2 meses</option>
+        <option>3+ meses</option>
+      </select>
+    </div>
+    <div class="req-field">
+      <label>Descripción de la necesidad <em>*</em> <span class="req-count" id="reqCount">0 / 400</span></label>
+      <textarea id="fDesc" rows="5" maxlength="400" placeholder="Cómo opera tu organización hoy, qué necesita y qué te gustaría lograr."></textarea>
+    </div>
+    <button class="req-submit" id="reqSend" type="button">Enviar solicitud</button>
+    <div class="req-msg" id="reqMsg"></div>
+    <div class="req-note">Campos marcados con * obligatorios · Te contactaremos para agendar una conversación</div>
+  </div>
+</aside>
+
 <script src="/nav.js"></script>
+<script src="/request-drawer.js"></script>
 </body>
 </html>
